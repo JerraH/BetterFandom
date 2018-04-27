@@ -10,8 +10,9 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div className="container">
+    <div className="card">
+      <form className="card-body" onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email"><small>Email</small></label>
           <input name="email" type="text" />
@@ -25,8 +26,14 @@ const AuthForm = (props) => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
     </div>
+    <div className="card">
+      <div className="card-body">
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+    </div>
+    </div>
+
   )
 }
 

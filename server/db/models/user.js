@@ -29,7 +29,6 @@ const User = db.define('user', {
   }
 })
 
-module.exports = User
 
 /**
  * instanceMethods
@@ -37,6 +36,7 @@ module.exports = User
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
+
 
 /**
  * classMethods
@@ -65,3 +65,5 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+
+module.exports = User
