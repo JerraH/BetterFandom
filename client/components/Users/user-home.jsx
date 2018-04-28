@@ -1,9 +1,10 @@
 
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import WriteBlogEntry from '../index';
+import {WriteBlogEntry, Tabs} from '../index';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import ErrorBoundary from '../ErrorBoundary';
 
 /**
  * COMPONENT
@@ -17,35 +18,25 @@ class UserHome extends Component {
   }
 
 
-    render() {
-      const {email} = this.props;
-      return (
-        <div className="container">
-          <div className="card">
-            <div className="card-title">
-              <h3>Welcome, {email}</h3>
-            </div>
-          </div>
-          <div className="card content-block">
-            <div className="tabs">
-              <ul className="nav nav-tabs">
-                <li className="nav-item">
-                  <Link className="nav-link">Beychella</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link">My baby</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link">Hello</Link>
-                </li>
-              </ul>
-            </div>
+ render() {
+   const {email} = this.props;
+  return (
+
+      <div className="container">
+      <ErrorBoundary>
+        <div className="card">
+          <div className="card-title">
+            <h3>Welcome, {email}</h3>
           </div>
         </div>
-      )
+        <div className="card content-block">
+          <Tabs />
+        </div>
+        </ErrorBoundary>
+      </div>
 
-    }
-}
+  ) } }
+
 
 /**
  * CONTAINER
@@ -59,7 +50,9 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
+// export default connect(mapState)(UserHome)
+
+export default UserHome;
 
 /**
  * PROP TYPES

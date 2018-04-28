@@ -2,6 +2,11 @@ const User = require('./user')
 const Post = require('./post')
 const Comment = require('./comment')
 const Tag = require('./tag')
+const PrivateMessage = require('./private-messages')
+const UserProfile = require('./user-profile')
+const Flag = require('./flag')
+// const Following = require('../index').Following
+const Op = require('sequelize').Op
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,14 +17,26 @@ const Tag = require('./tag')
 
 User.belongsToMany(User, {through: 'Following', as: 'Follower'})
 
+User.belongsToMany(User, {through: 'BlockList', as: 'BlockedUser'})
+
 User.hasMany(Post)
+
+PrivateMessage.belongsTo(User, {as: 'sender'})
+PrivateMessage.belongsTo(User, {as: 'recipient'})
 
 User.hasMany(Comment);
 
 Post.hasMany(Tag);
+Tag.belongsToMany(Post, {through: 'TaggedAs'});
 
 Post.belongsToMany(Comment, {through: 'CommentThread'})
 Comment.hasOne(Post);
+
+User.hasOne(UserProfile)
+
+User.hasMany(Flag)
+Flag.belongsTo(User, {as: 'FlaggedUser'})
+Flag.belongsTo(User, {as: 'Reporter'})
 // User.belongsToMany(User, {through: 'Following', as: 'Follow'})
 
 
@@ -34,5 +51,38 @@ Comment.hasOne(Post);
 module.exports = {
   User,
   Post,
-  Comment
+  Comment,
+  PrivateMessage,
+  UserProfile,
+  Flag
 }
+
+
+User.prototype.getFeed = function() {
+  User.findAll(
+    {where: {
+    followerId: this.id
+  }}, {
+    attributes: 'userId'
+  })
+  .then(followingUsers => Post.findAll({
+    where: {
+      userId: {
+        [Op.contained]: followingUsers
+      },
+      include: [
+        {
+       model: Comment
+      }
+  ]
+    }
+  }))
+}
+// include: [
+//   {
+//     model: db.posts,
+//
+//   }
+// ]
+
+

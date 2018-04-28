@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 const MessageThread = (props) => (
   <div>{
-    this.props.messages.map(message => {
+    props.messages.map(message => {
       return (
         <ErrorBoundary>
           <Message key={message.id} props={message} />

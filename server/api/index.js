@@ -2,6 +2,7 @@ const router = require('express').Router()
 module.exports = router
 
 router.use('/users', require('./users'))
+router.use('/messages', require('./private-messages'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

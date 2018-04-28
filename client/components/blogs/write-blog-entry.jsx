@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 
 class WriteBlogEntry extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      blogpost: ''
+    }
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    this.setState(event.target.name = event.target.value)
+  }
+
   render() {
     return (
       <div>

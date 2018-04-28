@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, BlogPostList, BlogEntry, WriteBlogEntry} from './components'
+import {Login, Signup, UserHome, BlogFeed, BlogEntry, WriteBlogEntry, MessageThread, AllMessages, WriteMessage} from './components'
 import {me} from './store'
+import ErrorBoundary from './components/ErrorBoundary';
+
 
 /**
  * COMPONENT
@@ -24,10 +26,13 @@ class Routes extends Component {
 
               {/* Routes placed here are only available after logging in */}
         <Route path="/home" component={UserHome} />
-        <Route path="/blog-feed" component={BlogPostList} />
+        <Route path="/blog-feed" component={BlogFeed} />
         <Route path="/write-blog-post" component={WriteBlogEntry} />
-        <Route path="/:postid" component={BlogEntry} />
-        <Route path="/:userid/messages/:messagethread" />
+        <Route path="posts/:postid" component={BlogEntry} />
+        <Route exact path="/messages" component={AllMessages} />
+        {/* <Route path="/messages/:userId/:messagethread" component={MessageThread} /> */}
+
+
 
 
         {/* Displays our Login component as a fallback */}

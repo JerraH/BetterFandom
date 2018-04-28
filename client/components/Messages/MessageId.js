@@ -1,10 +1,10 @@
 import React from 'react';
-import ErrorBoundary from '../ErrorBoundary';
+
 
 const Message = (props) => (
-  <div className="card">
+  <div className="card message">
     <div className="card-body">
-    {this.props.message}
+    {props.message}
     </div>
   </div>
 );

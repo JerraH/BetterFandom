@@ -38,6 +38,7 @@ User.prototype.correctPassword = function (candidatePwd) {
 }
 
 
+
 /**
  * classMethods
  */

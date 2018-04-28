@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 
-class BlogEntry extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: ''
-    }
-  }
-
-  render() {
+function BlogEntry(props) {
     return (
-      <div className="post">
-        <div className="title">
+      <div className="post card" id={props.post.id}>
+        <div className="card-title">
           <h3></h3>
         </div>
-        <div className="postText"></div>
+        <div className="card-body postText">
+        {props.post.content}
+        </div>
         <ul>
           <li>Like</li>
           <li>Share</li>
@@ -23,6 +17,6 @@ class BlogEntry extends Component {
       </div>
     );
   }
-}
+
 
 export default BlogEntry;

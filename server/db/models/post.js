@@ -16,3 +16,9 @@ const Post = db.define('post', {
 
 
 module.exports = Post;
+
+// Post.getFeed(userId) {
+//   User.findById(userId, {include:
+//   {model: following}})
+//   .then(user => followList: user.following)
+// }

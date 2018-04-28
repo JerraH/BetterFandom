@@ -8,10 +8,8 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 const App = () => {
   return (
     <div className="container-fluid">
-      <ErrorBoundary>
         <Navbar />
         <Routes />
-      </ErrorBoundary>
 
     </div>
   )

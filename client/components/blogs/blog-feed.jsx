@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BlogEntry from './blog-entry.jsx';
+import {connect} from 'react-redux';
 
 class BlogFeed extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class BlogFeed extends Component {
           "Wahhhhaa?" said Mako and Asami.
           "Yes I am taking part. I am going to win the world kicking ass medal and there's nothing you pathetic people can do to stop me! "
           With that Amon marched off.    '`,
-          user: "smythe"
+          user: "smythe", id: 1
         },
         {
           title: "My name is",
@@ -50,7 +51,7 @@ class BlogFeed extends Component {
           "Wahhhhaa?" said Mako and Asami.
           "Yes I am taking part. I am going to win the world kicking ass medal and there's nothing you pathetic people can do to stop me! "
           With that Amon marched off.    '`,
-          user: "smythe"
+          user: "smythe", id: 2
         }
       ]
     }
@@ -58,9 +59,11 @@ class BlogFeed extends Component {
 
   render() {
     return (
-      <div>
-        { this.state.blogPosts.map((post) => {
-          <BlogEntry props={post} />
+      <div className="container">
+        { this.state.blogPosts.map(post => {
+          return (
+            <BlogEntry key={post.id} post={post} />
+          )
 
         })
         }
@@ -70,4 +73,10 @@ class BlogFeed extends Component {
   }
 }
 
-export default BlogFeed;
+
+const mapStateToProps = state => {
+  const { posts } = state
+  return { posts }
+}
+
+export default connect(mapStateToProps)(BlogFeed);
