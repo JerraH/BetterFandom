@@ -15,9 +15,7 @@ function AllMessages(props) {
       { messages && messages.length ?
         messages.map(message => {
         return (
-          <ErrorBoundary key={message.id}>
             <Message key={message.id} message={message} />
-          </ErrorBoundary>
 
         )
       }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>}
@@ -33,13 +31,13 @@ const mapStateToProps = (state) => {
 
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAllMessages() {
-      dispatch(getMessages())
-    }
-  }
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getAllMessages() {
+//       dispatch(getMessages())
+//     }
+//   }
+// };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllMessages)
+export default connect(mapStateToProps)(AllMessages)
