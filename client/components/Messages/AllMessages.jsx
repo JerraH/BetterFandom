@@ -5,11 +5,18 @@ import Message from './MessageId';
 import {getMessages, getThread, sendPrivateMessage} from '../../store/messages';
 import ErrorBoundary from '../ErrorBoundary';
 
-function AllMessages(props) {
+class AllMessages extends Component {
 
-  const messages = props.messages
+  componentDidMount() {
+    console.log(this.props);
+   this.props.getMessages()
+  }
 
-  return (
+
+  render(){
+  const messages = this.props.messages
+
+    return (
 
       <div className="container">
       { messages && messages.length ?
@@ -24,6 +31,7 @@ function AllMessages(props) {
 
       </div>
   )}
+}
 
 
 const mapStateToProps = (state) => {
@@ -35,7 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllMessages() {
+    getMessages() {
       dispatch(getMessages())
     }
   }
