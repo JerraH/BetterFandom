@@ -1,1 +1,1 @@
-html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}.container{width:70%}
+html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}.container{margin-top:2rem;width:70%}.container .message-thread{margin-top:1rem}.message-left{max-width:75%;align-self:flex-start;float:left}.message-right{max-width:75%;align-self:flex-end;float:right}.card-title.username{font-size:1.2rem;color:navy;font-weight:bold}.container.chat{overflow-y:scroll;display:block}

@@ -2,30 +2,32 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Message from './MessageId';
+import ChannelHead from './ChannelHead.jsx';
 import {getMessages, getThread, sendPrivateMessage} from '../../store/messages';
 import ErrorBoundary from '../ErrorBoundary';
+import {Link} from 'react-router-dom'
 
 class AllMessages extends Component {
 
   componentDidMount() {
-    console.log(this.props);
-   this.props.getMessages()
+    this.props.getAllMessages()
   }
 
 
   render(){
-  const messages = this.props.messages
-
+  const channels = this.props.channels
+  const user = this.props.user
+    console.log("my channels are", channels)
     return (
 
       <div className="container">
-      { messages && messages.length ?
-        messages.map(message => {
+      { channels && channels.length ?
+        channels.map(channel => {
+          console.log("my channel is", channel)
         return (
-          <ErrorBoundary key={message.id}>
-            <Message key={message.id} message={message} />
-          </ErrorBoundary>
-
+          <Link to={`messages/${channel.id}`} key={channel.id}>
+            <ChannelHead key={channel.id} channel={channel} user={user} />
+          </Link>
         )
       }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>}
 
@@ -35,19 +37,25 @@ class AllMessages extends Component {
 
 
 const mapStateToProps = (state) => {
+  console.log("are there channels on my state", state.messages)
   return {
-    messages: state.messages
+    channels: state.messages,
+    user: state.user
   }
 
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    getMessages() {
+    getAllMessages() {
       dispatch(getMessages())
     }
   }
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllMessages)
+export default connect(mapStateToProps, mapDispatch)(AllMessages)
+
+AllMessages.propTypes = {
+  getAllMessages: PropTypes.func.isRequired,
+}

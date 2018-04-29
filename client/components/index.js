@@ -18,4 +18,6 @@ export {Tabs} from './Structural-Items/Tabs.jsx'
 
 export {default as AllMessages} from './messages/AllMessages.jsx'
 export {default as MessageThread} from './messages/MessageThread.js'
-export {default as WriteMessage} from './messages/writeMessage'
+export {default as WriteMessage} from './messages/PublicMessages/writeMessage'
+export {default as PublicMessages} from './messages/PublicMessages/PublicMessage.jsx'
+export {default as UserProfile} from './users/user-profile.jsx'

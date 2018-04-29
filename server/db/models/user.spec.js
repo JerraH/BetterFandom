@@ -13,15 +13,15 @@ describe('User model', () => {
   })
   beforeEach(() => {
     Promise.all([
-      User.create({email: 'cody@email.com', password: '123'}),
-      User.create({email: 'murphy@email.com', password: '123'}),
-      User.create({email: 'jerra.haynes@gmail.com', password: '123'}),
-      User.create({email: 'hellomybaby@gmail.com', password: '123'}),
-      User.create({email: 'whispers@aol.com', password: '123'}),
-      User.create({email: 'whereveryougo@gmail.com', password: '123'}),
-      User.create({email: 'fuckthisshithonestly@gmail.com', password: '123'}),
-      User.create({email: 'whatislove@aol.com', password: '123'}),
-      User.create({email: 'toofreakinquiet@aol.com', password: '123'}),
+      User.create({email: 'cody@email.com', password: '123', username: 'whisperwood'}),
+      User.create({email: 'murphy@email.com', password: '123', username: 'FranticFourteen'}),
+      User.create({email: 'jerra.haynes@gmail.com', password: '123', username: 'The_Black_Hole'}),
+      User.create({email: 'hellomybaby@gmail.com', password: '123', username: 'MsMarvel'}),
+      User.create({email: 'whispers@aol.com', password: '123', username: 'NoThatIsn\'tCopyrighted'}),
+      User.create({email: 'whereveryougo@gmail.com', password: '123', username: 'LetMyPeopleGo'}),
+      User.create({email: 'fuckthisshithonestly@gmail.com', password: '123', username: 'DeadMan\'sChest'}),
+      User.create({email: 'whatislove@aol.com', password: '123', username: 'whereverIgo'}),
+      User.create({email: 'toofreakinquiet@aol.com', password: '123', username: 'whateverIdo'}),
     ])
     .then((users) => {
       userOne = users[0];

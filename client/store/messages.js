@@ -1,4 +1,4 @@
-import { axios } from 'axios';
+import axios from 'axios';
 
 /**
  * ACTION TYPES
@@ -7,26 +7,41 @@ import { axios } from 'axios';
 const GET_MESSAGE_THREADS = 'GET_MESSAGE_THREADS';
 const GET_ONE_THREAD = 'GET_ONE_THREAD';
 const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_ASK = 'SEND_ASK'
 
 /**
  * INITIAL STATE
  */
-const initialMessages = []
+const channels = []
 
 /**
  * ACTION CREATORS
  */
 
-const getMessageThreads = messages => ({type: GET_MESSAGE_THREADS, messages})
-const getOneThread = thread => ({type: GET_ONE_THREAD, thread})
-const sendMessage = message => ({type: SEND_MESSAGE, message})
+const getMessageThreads = messageThreads => ({
+  type: GET_MESSAGE_THREADS,
+  messageThreads
+})
+const getOneThread = thread => ({
+  type: GET_ONE_THREAD,
+  thread
+})
+const sendMessage = message => ({
+  type: SEND_MESSAGE,
+  message
+})
+const sendAsk = ask => ({
+  type: SEND_ASK,
+  ask
+})
 
 /**
  * THUNK CREATORS
  */
 
- export const getMessages = () =>
-   dispatch =>
+export const getMessages = () =>
+  dispatch => {
+    console.log("please let this be working")
     axios.get(`/api/messages`)
       .then(res => {
         console.log('my response is', res)
@@ -34,42 +49,65 @@ const sendMessage = message => ({type: SEND_MESSAGE, message})
         dispatch(action)
       })
       .catch(error => console.log(error))
+  }
+
+// export const getAllThreads = (channelId) =>
+//     dispatch => {
+//       axios.get(`api/messages/${channelId}`)
+//       .then(res => {
+//         let action = getAllThreads(res.data)
+//         dispatch(action)
+//       })
+//     }
+export const sendAskToUser = (recipient, ask) =>
+  dispatch =>
+  axios.post(`/api/${recipient.id}/public`, ask)
+  .then(res => {
+    dispatch(sendAsk(res.data))
+  })
+  .catch(error => console.log(error))
 
 
- export const getThread = (user, messageThread) =>
-   dispatch =>
-    axios.get(`/api/${user.id}/${messageThread.id}`)
-    .then(res => {
-      dispatch(getOneThread(res.data))
-    })
-    .catch(error => console.log(error))
+
+export const getMessageThread = (threadId) =>
+  dispatch =>
+  axios.get(`/api/messages/${threadId}`)
+  .then(res => {
+    dispatch(getOneThread(res.data))
+  })
+  .catch(error => console.log(error))
 
 export const sendPrivateMessage = (user, message) =>
-    dispatch =>
-      axios.post(`/api/${user.id}`, message)
-      .then(res => {
-        dispatch(sendMessage(res.data))
-      })
-      .catch(error => console.log(error))
+  dispatch =>
+  axios.post(`/api/${user.id}`, message)
+  .then(res => {
+    dispatch(sendMessage(res.data))
+  })
+  .catch(error => console.log(error))
 
 
-    /**
-     * REDUCER
-     */
 
- const reducer = (state = initialMessages, action) => {
-   switch (action.type) {
+
+/**
+ * REDUCER
+ */
+
+const reducer = (state = channels, action) => {
+  switch (action.type) {
     case GET_MESSAGE_THREADS:
-      return action.messages
+      console.log("my message threads are", action.messageThreads)
+      return action.messageThreads
     case GET_ONE_THREAD:
-      return action.messages
+      return [...action.thread.privateMessages]
     case SEND_MESSAGE:
       return [...state, action.message]
+    case SEND_ASK:
+      return state;
 
-     default:
-       return state
-   }
- }
+    default:
+      return state
+  }
+}
 
- export default reducer
+export default reducer
 

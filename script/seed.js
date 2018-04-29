@@ -10,7 +10,8 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Post, PrivateMessage, Flag, Tag, UserProfile, Comment, getFollowing} = require('../server/db/models')
+const {User, Post, PrivateMessage, Flag, Tag, UserProfile, Comment, getFollowing, Channel} = require('../server/db/models')
+const Op = require('sequelize').Op
 
 async function seed () {
   await db.sync({force: true})
@@ -20,15 +21,15 @@ async function seed () {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
-    User.create({email: 'jerra.haynes@gmail.com', password: '123'}),
-    User.create({email: 'hellomybaby@gmail.com', password: '123'}),
-    User.create({email: 'whispers@aol.com', password: '123'}),
-    User.create({email: 'whereveryougo@gmail.com', password: '123'}),
-    User.create({email: 'fuckthisshithonestly@gmail.com', password: '123'}),
-    User.create({email: 'whatislove@aol.com', password: '123'}),
-    User.create({email: 'toofreakinquiet@aol.com', password: '123'}),
+    User.create({email: 'cody@email.com', password: '123', username: 'whisperwood'}),
+    User.create({email: 'murphy@email.com', password: '123', username: 'FranticFourteen'}),
+    User.create({email: 'jerra.haynes@gmail.com', password: '123', username: 'The_Black_Hole'}),
+    User.create({email: 'hellomybaby@gmail.com', password: '123', username: 'MsMarvel'}),
+    User.create({email: 'whispers@aol.com', password: '123', username: 'NoThatIsn\'tCopyrighted'}),
+    User.create({email: 'whereveryougo@gmail.com', password: '123', username: 'LetMyPeopleGo'}),
+    User.create({email: 'fuckthisshithonestly@gmail.com', password: '123', username: 'DeadMan\'sChest'}),
+    User.create({email: 'whatislove@aol.com', password: '123', username: 'whereverIgo'}),
+    User.create({email: 'toofreakinquiet@aol.com', password: '123', username: 'whateverIdo'}),
   ])
   const postList = await Promise.all([
     Post.create({content: "Ennui kitsch actually scenester et gastropub try-hard cred. Mustache dolore pabst echo park pug. Chicharrones offal irony bicycle rights mustache pop-up, af dolore esse kickstarter yr. Chia ennui neutra, pok pok lumbersexual selvage bushwick food truck kinfolk dolore. Pug slow-carb proident air plant VHS nostrud mustache. Velit +1 activated charcoal dolore cliche kogi williamsburg deserunt chicharrones mollit raclette austin umami.", userId: 4}),
@@ -48,53 +49,82 @@ async function seed () {
     users[0].addFollower(users[1]),
     users[0].addFollower(users[5]),
   ])
+  const Channels = await Promise.all([
+    Channel.create(),
+    Channel.create(),
+    Channel.create(),
+  ])
   const pMs = await Promise.all([
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3
+      content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3, channelId: 1
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5, channelId: 3
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5
+      content: 'Akatsuki no kuruma wo miokutte', senderId: 3, recipientId: 5, channelId: 3
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
+      content: 'hi I love you!', senderId: 5, recipientId: 3, channelId: 3
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 2
+    }),
+    PrivateMessage.create({
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 2
     }),
   ])
+  // .then(() => PrivateMessage.findAll({include: [{model: User, as: 'recipient'}, {model: User, as: 'sender'}]})
+  //   .then((messages) => {
+  //     messages.forEach(message => {
+  //       let myChannel = Channel.findOne({where: {
+  //         [Op.or]: [
+  //           {name: message.sender.email + ' ' + message.recipient.email},
+  //           {name: message.recipient.email + ' ' + message.sender.email }
+  //         ]
+  //       }})
+  //       if (myChannel) {
+  //         message.setChannel(myChannel)
+  //       } else {
+  //         let newChannel = Channel.create({name:     message.sender.email + ' ' + message.recipient.email})
+  //         .then(channel => {
+  //           message.setChannel(channel)
+  //         })
+  //       }
+
+  //     });
+  //   })
+  // )
 
 
 
 
 
 
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
+    // Wowzers! We can even `await` on the right-hand side of the assignment operator
+    // and store the result that the promise resolves to in a variable! This is nice!
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${postList.length} posts`)
-  console.log(`seeded ${followers.length} followers`)
-  console.log(`seeded successfully`)
-}
+    console.log(`seeded ${users.length} users`)
+    console.log(`seeded ${postList.length} posts`)
+    console.log(`seeded ${followers.length} followers`)
+    console.log(`seeded successfully`)
+  }
 
 
-// Execute the `seed` function
-// `Async` functions always return a promise, so we can use `catch` to handle any errors
-// that might occur inside of `seed`
-seed()
-  .catch(err => {
-    console.error(err.message)
-    console.error(err.stack)
-    process.exitCode = 1
-  })
-  .then(() => {
-    console.log('closing db connection')
-    db.close()
-    console.log('db connection closed')
-  })
+  // Execute the `seed` function
+  // `Async` functions always return a promise, so we can use `catch` to handle any errors
+  // that might occur inside of `seed`
+  seed()
+    .catch(err => {
+      console.error(err.message)
+      console.error(err.stack)
+      process.exitCode = 1
+    })
+    .then(() => {
+      console.log('closing db connection')
+      db.close()
+      console.log('db connection closed')
+    })
 
 /*
  * note: everything outside of the async function is totally synchronous

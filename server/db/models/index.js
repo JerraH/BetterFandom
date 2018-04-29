@@ -5,6 +5,8 @@ const Tag = require('./tag')
 const PrivateMessage = require('./private-messages')
 const UserProfile = require('./user-profile')
 const Flag = require('./flag')
+const Channel = require('./channel')
+const PublicMessage = require('./public-messages')
 // const Following = require('../index').Following
 const Op = require('sequelize').Op
 
@@ -23,6 +25,13 @@ User.hasMany(Post)
 
 PrivateMessage.belongsTo(User, {as: 'sender'})
 PrivateMessage.belongsTo(User, {as: 'recipient'})
+
+PublicMessage.belongsTo(User, {as: 'sender'})
+PublicMessage.belongsTo(User, {as: 'recipient'})
+
+PrivateMessage.belongsTo(Channel)
+Channel.hasMany(PrivateMessage)
+
 
 User.hasMany(Comment);
 
@@ -54,7 +63,9 @@ module.exports = {
   Comment,
   PrivateMessage,
   UserProfile,
-  Flag
+  Flag,
+  Channel,
+  PublicMessage
 }
 
 
