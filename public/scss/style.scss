@@ -1,3 +1,5 @@
+@import 'variables';
+
 html {
   box-sizing: border-box;
 }
@@ -7,7 +9,7 @@ html {
 
 .container {
   margin-top:2rem;
-  width: 70%;
+  max-width:900px;
   .message-thread {
     margin-top:1rem;
   }
@@ -28,7 +30,6 @@ html {
 .card-title {
   &.username {
   font-size:1.2rem;
-  color: navy;
   font-weight:bold;
 }
 }
@@ -37,5 +38,46 @@ html {
   &.chat {
     overflow-y: scroll;
     display: block;
+  }
+}
+
+.navbar {
+  background-color: $blue;
+  a {
+    color: black;
+  }
+}
+
+.card-header {
+  width: 100%;
+  background-color: $light-blue;
+}
+.card {
+  margin-bottom:1rem;
+  .card-body {
+    padding:2rem;
+  }
+  &.shoutbox {
+    .card-body {
+      padding-left:4rem;
+    }
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color:white;
+  button {
+    flex: 100px 1 auto;
+    background-color: $blue;
+    color: white;
+  }
+}
+
+input {
+  &[type=textarea] {
+    height: 6rem;
+    margin-bottom: 1rem;
   }
 }

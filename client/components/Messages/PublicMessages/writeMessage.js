@@ -9,28 +9,32 @@ class WriteMessage extends Component {
       message: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
  handleChange = (event) => {
     event.preventDefault()
-    this.setState(event.target.name = event.target.value)
+    this.setState({[event.target.name]: event.target.value})
     console.log(this.state.message)
   }
 
-handleSubmit = (event) => {
-  event.preventDefault()
-  this.props.sendAskToUser({content: event.target.value, senderId: this.props.user.id, recipientId: this.props.match.userId})
-  //here do a dispatch
-}
+  handleSubmit = (event) => {
+    event.preventDefault();
+    let shout = {content: this.state.message, senderId: this.props.userId, recipientId: +this.props.recipientId}
+    this.props.sendAskToUserBound(shout)
+    this.props.unshout();
+    //here do a dispatch
+  }
 
   render() {
     return (
       <div className="card">
-        <div className="card-body">
-          <input onChange={this.handleChange} type="textArea" name="message" value={this.state.message} />
-          <div className="buttonholder">
-            <button>Submit</button>
-            <button>Cancel</button>
+        <div className="card-body form-group">
+          <label htmlFor="message">Send a message!</label>
+          <input onChange={this.handleChange} className="form-control" type="textArea" name="message" value={this.state.message} />
+          <div className="buttonholder card-footer">
+            <button className="btn btn-primary" onClick={this.handleSubmit}>Shout!</button>
+            <button className="btn btn-cancel" onClick={this.props.unshout}>I changed my mind!</button>
           </div>
         </div>
       </div>
@@ -43,9 +47,9 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch)=> {
   return {
-    sendAskToUser(message) {
+    sendAskToUserBound(message) {
       dispatch(sendAskToUser(message))
     }
   }

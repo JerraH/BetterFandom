@@ -1,3 +1,5 @@
+import { axios } from "axios";
+
 /**
  * ACTION TYPES
  */
@@ -6,13 +8,31 @@ const GET_USER_PROFILE = 'GET_USER_PROFILE'
 const GET_MY_PROFILE = 'GET_MY_PROFILE'
 const EDIT_PROFILE = 'EDIT_PROFILE'
 
+/**
+ * ACTION CREATORS
+ */
+
+const getUserProfile = userProfile => ({type: GET_USER_PROFILE, userProfile})
+
+
+ /**
+  * THUNK CREATORS
+  */
+  export const getOtherUser = (userId) =>
+  dispatch =>
+    axios.get(`/api/users/${userId}`)
+    .then(res => dispatch(getUserProfile(res)))
+    .catch(err => console.log(err))
 
 const userProfile = {}
 
 const reducer = (state = userProfile, action) => {
   switch (action.type) {
+    case GET_USER_PROFILE:
+      return action.userProfile;
+
     default:
-      return state
+      return state;
   }
 }
 

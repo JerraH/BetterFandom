@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, BlogFeed, BlogEntry, WriteBlogEntry, MessageThread, AllMessages, WriteMessage, UserProfile} from './components'
+import {Login, Signup, UserHome, BlogFeed, BlogEntry, WriteBlogEntry, MessageThread, AllMessages, WriteMessage, UserProfile, PublicMessages} from './components'
 import {me} from './store'
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -28,10 +28,11 @@ class Routes extends Component {
         <Route path="/home" component={UserHome} />
         <Route path="/blog-feed" component={BlogFeed} />
         <Route path="/write-blog-post" component={WriteBlogEntry} />
-        <Route path="posts/:postid" component={BlogEntry} />
+        <Route path="/posts/:postid" component={BlogEntry} />
         <Route exact path="/messages" component={AllMessages} />
+        <Route exact path="/messages/:userId/publicmessages" component={PublicMessages} />
         <Route path="/messages/:threadId" component={MessageThread} />
-        <Route exact path="users/:userId" component={UserProfile} />
+        <Route exact path="/users/:userId" component={UserProfile} />
         {/* <Route path="/messages/:userId/:messagethread" component={MessageThread} /> */}
 
 

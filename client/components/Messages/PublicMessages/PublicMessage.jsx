@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Message from '../MessageId';
-import {getMessages, getThread, sendPrivateMessage} from '../../../store/messages';
+import {default as ShoutBox} from './shoutbox.jsx';
+import {getPublicMessages, sendPrivateMessage} from '../../../store/asks';
 import ErrorBoundary from '../../ErrorBoundary';
-import {Link} from 'react-router-dom'
 
 class PublicMessages extends Component {
 
   componentDidMount() {
-    this.props.getAllMessages()
+    this.props.getPublicMessages(this.props.user.id)
   }
 
 
@@ -24,11 +23,9 @@ class PublicMessages extends Component {
         messages.map(message => {
           console.log("my message is", message)
         return (
-          <Link to={`messages/${message.id}`} key={message.id}>
-            <Message key={message.id} message={message} user={user} />
-          </Link>
+            <ShoutBox key={message.id} message={message} user={user} />
         )
-      }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>}
+      }) : <div className="card alert alert-warning">Sorry, you have no asks right now!</div>}
 
       </div>
   )}
@@ -36,9 +33,9 @@ class PublicMessages extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log("are there messages on my state", state.messages)
+  console.log("are there asks on my state", state.asks)
   return {
-    messages: state.messages,
+    messages: state.asks,
     user: state.user
   }
 
@@ -46,8 +43,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getPublicMessages() {
-      dispatch(getMessages())
+    getPublicMessages(userId) {
+      dispatch(getPublicMessages(userId))
     }
   }
 };
@@ -55,6 +52,6 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatch)(PublicMessages)
 
-PublicMessages.propTypes = {
-  getAllMessages: PropTypes.func.isRequired,
-}
+// PublicMessages.propTypes = {
+//   getMessages: PropTypes.func.isRequired,
+// }

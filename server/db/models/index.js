@@ -41,7 +41,8 @@ Tag.belongsToMany(Post, {through: 'TaggedAs'});
 Post.belongsToMany(Comment, {through: 'CommentThread'})
 Comment.hasOne(Post);
 
-User.hasOne(UserProfile)
+User.belongsTo(UserProfile);
+UserProfile.hasOne(User)
 
 User.hasMany(Flag)
 Flag.belongsTo(User, {as: 'FlaggedUser'})

@@ -14,10 +14,12 @@ function Message(props) {
             </div>
           </div> :
           <div className="card message-left">
-            <div className="card-body">
+            <div className="card-header">
               <p className="card-title username">
                 {message.sender.username}
               </p>
+            </div>
+            <div className="card-body">
               <p className="card-text">{message.content}</p>
             </div>
           </div>

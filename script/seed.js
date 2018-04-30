@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Post, PrivateMessage, Flag, Tag, UserProfile, Comment, getFollowing, Channel} = require('../server/db/models')
+const {User, Post, PrivateMessage, PublicMessage, Flag, Tag, UserProfile, Comment, getFollowing, Channel} = require('../server/db/models')
 const Op = require('sequelize').Op
 
 async function seed () {
@@ -49,6 +49,24 @@ async function seed () {
     users[0].addFollower(users[1]),
     users[0].addFollower(users[5]),
   ])
+  const userProfiles = await Promise.all([
+    UserProfile.create({filteredWords: ['strawberry', 'missus', 'girlfriend', 'fifteen'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
+    UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
+    UserProfile.create({filteredWords: ['strawberry', 'screaming'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'demigirl', pronouns: 'she/they/him'}),
+    UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'unknown', pronouns: 'ze/zir'}),
+    UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'girl', pronouns: 'he/him'}),
+    UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
+    UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
+  ])
+  const setUserProfiles = await Promise.all([
+    users[0].setUserProfile(userProfiles[0]),
+    users[1].setUserProfile(userProfiles[1]),
+    users[2].setUserProfile(userProfiles[2]),
+    users[3].setUserProfile(userProfiles[3]),
+    users[4].setUserProfile(userProfiles[4]),
+    users[5].setUserProfile(userProfiles[5]),
+    users[6].setUserProfile(userProfiles[6]),
+  ])
   const Channels = await Promise.all([
     Channel.create(),
     Channel.create(),
@@ -65,13 +83,33 @@ async function seed () {
       content: 'Akatsuki no kuruma wo miokutte', senderId: 3, recipientId: 5, channelId: 3
     }),
     PrivateMessage.create({
-      content: 'hi I love you!', senderId: 5, recipientId: 3, channelId: 3
+      content: 'hi I love you!', senderId: 5, recipientId: 3
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 2
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 2
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
+    }),
+  ])
+  const asks = await Promise.all([
+    PublicMessage.create({
+      content: 'whisper what it is you want', senderId: 4, recipientId: 3
+    }),
+    PublicMessage.create({
+      content: 'You ain\'t never had a friend like me', senderId: 3, recipientId: 5
+    }),
+    PublicMessage.create({
+      content: 'WHAHAHA, oh my', senderId: 3, recipientId: 5
+    }),
+    PublicMessage.create({
+      content: 'WELL ali baba had dem 40 thieves', senderId: 5, recipientId: 3
+    }),
+    PublicMessage.create({
+      content: 'Scherezade had a thousand tales', senderId: 3, recipientId: 6, channelId: 2
+    }),
+    PublicMessage.create({
+      content: 'master you in luck cause UP YOUR SLEEVE you got a brand of magic never fails!', senderId: 3, recipientId: 6
     }),
   ])
   // .then(() => PrivateMessage.findAll({include: [{model: User, as: 'recipient'}, {model: User, as: 'sender'}]})
@@ -107,6 +145,10 @@ async function seed () {
     console.log(`seeded ${users.length} users`)
     console.log(`seeded ${postList.length} posts`)
     console.log(`seeded ${followers.length} followers`)
+    console.log(`seeded ${pMs.length} private messages`)
+    console.log(`seeded ${asks.length} asks`)
+    console.log(`seeded ${userProfiles.length} user profiles`)
+    console.log(`added ${setUserProfiles.length} user profiles to users!`)
     console.log(`seeded successfully`)
   }
 

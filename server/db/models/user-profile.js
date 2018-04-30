@@ -25,9 +25,21 @@ const UserProfile = db.define('userProfile', {
   flags: {
     type: Sequelize.INTEGER //this is only intended to hold the quantity
   },
-  posts: {
-    type: Sequelize.VIRTUAL //
+  about: {
+    type: Sequelize.TEXT
+  },
+  gender: {
+    type: Sequelize.STRING
+  },
+  pronouns: {
+    type: Sequelize.STRING
+  },
+  name: {
+    type: Sequelize.STRING
   }
+  // posts: {
+  //   type: Sequelize.VIRTUAL //
+  // }
 
 })
 

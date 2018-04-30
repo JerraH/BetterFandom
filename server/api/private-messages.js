@@ -8,6 +8,10 @@ router.get(`/`, (req, res, next) => {
   Channel.findAll({
     include: [{
       model: PrivateMessage,
+      where: {
+        [Op.or]:
+       [{senderId: req.user.id}, {recipientId: req.user.id}]
+      },
       include: [{
         model: User,
         as: 'recipient'
@@ -16,14 +20,9 @@ router.get(`/`, (req, res, next) => {
         model: User,
         as: 'sender'
       }
-    ]}]
-  }).then(channels => {
-      return channels.filter((channel) => {
-        return (
-          channel.privateMessages[0].senderId === req.user.id ||
-          channel.privateMessages[0].recipientId === req.user.id
-        )
-  })})
+    ]
+    }]
+  })
   .then(channels => res.json(channels))
   .catch(next)
 })
@@ -47,7 +46,23 @@ router.get('/:channelId', (req, res, next) => {
 })
 
 router.post('/:userId/publicmessage', (req, res, next) => {
+  console.log(req.body)
   PublicMessage.sendMessage(req.body)
+  res.json('Message sent!')
+  // .then(() => res.json('Message sent!'))
+  // .catch(next)
+})
+
+router.get('/:userId/publicmessages', (req, res, next) => {
+  console.log("I am in the back!")
+  PublicMessage.findAll({where:
+    {recipientId: req.params.userId},
+    include: [
+      {model: User, as: 'sender'}
+    ]
+  })
+  .then(asks => res.json(asks))
+  .catch(next)
 })
 
 module.exports = router

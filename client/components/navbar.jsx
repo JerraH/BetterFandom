@@ -6,12 +6,12 @@ import {logout} from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn, user }) => (
 
-    <nav className="navbar navbar-expand-md navbar-light bg-light ">
+    <nav className="navbar navbar-expand-md">
 
       {isLoggedIn ? (
 
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item"><a className="navbar-brand" href="#">Better Fandom</a></li>
+            <li className="nav-item"><a className="navbar-brand" href="/home">Better Fandom</a></li>
           {/* The navbar will show these links after you log in */}
 
             <li className="nav-item">
@@ -27,6 +27,9 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
             </li>
             <li className="nav-item">
               <Link to={`/messages`} className="nav-link" >Messages</Link>
+            </li>
+            <li className="nav-item">
+              <Link to={`/messages/${user.id}/publicmessages`} className="nav-link" >Shouts</Link>
             </li>
           </ul>
 

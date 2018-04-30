@@ -11,8 +11,9 @@ import {
 import {default as user} from './user'
 import {default as messages} from './messages'
 import {default as userProfile} from './userProfile'
+import {default as asks} from './asks'
 
-const reducer = combineReducers({user, messages, userProfile})
+const reducer = combineReducers({user, messages, userProfile, asks})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({
@@ -25,4 +26,5 @@ export default store
 export * from './user'
 export * from './messages'
 export * from './userProfile'
+export * from './asks'
 
