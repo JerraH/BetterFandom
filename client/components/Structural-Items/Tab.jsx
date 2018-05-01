@@ -1,9 +1,11 @@
 import React from 'react';
+import ErrorBoundary from '../ErrorBoundary';
 
 const Tab = (props) => {
   return (
-  <li className="tab">
-    <a className={`tab-link ${props.linkClassName} ${props.isActive ? 'active' : ''}`}
+    <ErrorBoundary>
+      <li className="tab">
+    <a
         onClick={(event) => {
           event.preventDefault();
           props.onClick(props.tabIndex);
@@ -11,6 +13,8 @@ const Tab = (props) => {
     </a>
 
   </li>
+    </ErrorBoundary>
+
 );
 }
 

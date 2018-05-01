@@ -31,6 +31,10 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  blackMarks: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
@@ -40,6 +44,10 @@ const User = db.define('user', {
  */
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+}
+
+User.prototype.blackMark = function () {
+  this.increment('blackMarks');
 }
 
 

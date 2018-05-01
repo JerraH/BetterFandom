@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Message from './MessageId';
-import ChannelHead from './ChannelHead.jsx';
+import ChannelHead from './channel-head.jsx';
 import {getMessages, getThread, sendPrivateMessage} from '../../store/messages';
 import ErrorBoundary from '../ErrorBoundary';
 import {Link} from 'react-router-dom'
@@ -21,13 +21,12 @@ class AllMessages extends Component {
     return (
 
       <div className="container">
+        <h2>Private Messages</h2>
       { channels && channels.length ?
         channels.map(channel => {
           console.log("my channel is", channel)
         return (
-          <Link to={`messages/${channel.id}`} key={channel.id}>
             <ChannelHead key={channel.id} channel={channel} user={user} />
-          </Link>
         )
       }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>}
 

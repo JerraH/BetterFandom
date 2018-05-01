@@ -60,9 +60,9 @@ export const getMessageThread = (threadId) =>
   })
   .catch(error => console.log(error))
 
-export const sendPrivateMessage = (user, message) =>
+export const sendPrivateMessage = (message) =>
   dispatch =>
-  axios.post(`/api/${user.id}`, message)
+  axios.post(`/api/${message.recipientId}`, message)
   .then(res => {
     dispatch(sendMessage(res.data))
   })

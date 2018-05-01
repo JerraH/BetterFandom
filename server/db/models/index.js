@@ -31,6 +31,8 @@ PublicMessage.belongsTo(User, {as: 'recipient'})
 
 PrivateMessage.belongsTo(Channel)
 Channel.hasMany(PrivateMessage)
+Channel.belongsToMany(User, {through: 'conversation'})
+User.belongsToMany(Channel, {through: 'conversation'})
 
 
 User.hasMany(Comment);

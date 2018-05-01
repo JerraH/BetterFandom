@@ -40,6 +40,8 @@ PublicMessage.sendMessage = (message) => {
         return PublicMessage.create(message)
       } else if (sendable === false) {
         //if not tell the console why but don't tell the user!
+        User.findById(message.senderId)
+          .then(user => user.blackMark())
         console.log('there were banned words in that there message')
       }
     })

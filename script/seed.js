@@ -72,6 +72,15 @@ async function seed () {
     Channel.create(),
     Channel.create(),
   ])
+  const conversations = await Promise.all([
+    Channels[0].addUser(users[0]),
+    Channels[0].addUser(users[1]),
+    Channels[1].addUser(users[2]),
+    Channels[1].addUser(users[1]),
+    Channels[2].addUser(users[4]),
+    Channels[2].addUser(users[3])
+
+  ])
   const pMs = await Promise.all([
     PrivateMessage.create({
       content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3, channelId: 1

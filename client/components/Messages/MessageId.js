@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 
 function Message(props) {
-  let message = props.message
+  let message = props.message;
   console.log("my message is", message)
   return (
     <div>
@@ -14,12 +14,10 @@ function Message(props) {
             </div>
           </div> :
           <div className="card message-left">
-            <div className="card-header">
-              <p className="card-title username">
+            <div className="card-body">
+            <p className="card-title username">
                 {message.sender.username}
               </p>
-            </div>
-            <div className="card-body">
               <p className="card-text">{message.content}</p>
             </div>
           </div>
@@ -29,10 +27,10 @@ function Message(props) {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user
-
+    user: state.user,
+    message: ownProps.message
   }
 }
 

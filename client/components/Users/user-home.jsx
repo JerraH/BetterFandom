@@ -19,20 +19,19 @@ class UserHome extends Component {
 
 
  render() {
-   const {email} = this.props;
+   const {username} = this.props;
+   const tabs = ['Bit Feed', 'Block Feed', 'Write Bit', 'Write Block'];
   return (
 
       <div className="container">
-      <ErrorBoundary>
         <div className="card">
           <div className="card-title">
-            <h3>Welcome, {email}</h3>
+            <h3>Welcome, {username}</h3>
           </div>
         </div>
         <div className="card content-block">
-          <Tabs />
+            <Tabs tabs={tabs} />
         </div>
-        </ErrorBoundary>
       </div>
 
   ) } }
@@ -43,16 +42,14 @@ class UserHome extends Component {
  */
 const mapState = (state) => {
   return {
-
+    username: state.user.username,
     email: state.user.email,
     // defaultActiveTabIndex: state.home.defaultActiveTabIndex;
 
   }
 }
 
-// export default connect(mapState)(UserHome)
-
-export default UserHome;
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES

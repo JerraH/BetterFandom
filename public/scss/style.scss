@@ -15,17 +15,6 @@ html {
   }
 }
 
-.message-left {
-  max-width: 75%;
-  align-self:flex-start;
-  float:left;
-}
-
-.message-right {
-  max-width: 75%;
-  align-self:flex-end;
-  float:right;
-}
 
 .card-title {
   &.username {
@@ -79,5 +68,35 @@ input {
   &[type=textarea] {
     height: 6rem;
     margin-bottom: 1rem;
+  }
+}
+
+.container {
+  background-color: white;
+  margin-top: 0;
+  padding:2rem;
+}
+
+.container-fluid {
+  background-color: lighten($light-blue, 2%);
+  min-height: 100vh;
+}
+
+.chat.container {
+  max-width:600px;
+  .message-left {
+    max-width: 75%;
+    margin-right: 25%;
+    align-self:flex-start;
+  }
+
+  .message-right {
+    max-width: 75%;
+    align-self:flex-end;
+    background-color:$blue;
+    margin-left: 25%
+  }
+  .form-group {
+    padding: .5rem;
   }
 }
