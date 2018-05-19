@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import { default as Message } from './MessageId';
 import ErrorBoundary from '../ErrorBoundary';
 import {connect} from 'react-redux'
-import { setRecipient, getMessageThread } from '../../store';
+import { getMessageChannel } from '../../store';
 import { PropTypes } from 'prop-types';
 import {ChatReply} from '../index';
-import { getOtherUser } from '../../store/userProfile';
 
 
 class MessageThread extends Component {
@@ -19,18 +18,19 @@ class MessageThread extends Component {
 
 
   componentDidMount() {
-    this.props.getMessageThread(this.props.match.params.threadId);
+    let channelId = this.props.match.params.channelId
+    this.props.getMessageChannel(channelId);
   }
 
+
   render() {
-    console.log(this.props.otherUser)
-    let otherUser = this.props.otherUser
     // this.props.messages[0].senderId !== this.props.user.id ?
     //   recipientId = this.props.messages[0].senderId :
     //   recipientId = this.props.messages[0].recipientId
+    console.log("my messages are", this.props.messages)
     return (
       <div className="container chat">
-        <h3>{otherUser}</h3>
+        <h3>{this.props.channel.users}</h3>
           {this.props.messages.map(message => {
             return (
               <ErrorBoundary key={message.id}>
@@ -39,14 +39,15 @@ class MessageThread extends Component {
             )
           })
         }
-        <ChatReply channelId={this.channelId} recipientId={this.props.recipient.id} />
+        <ChatReply channelId={this.state.channelId} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  messages: state.messages,
+  messages: state.messages.messages,
+  channel: state.messages.channels,
   user: state.user,
   recipient: state.recipient
 })
@@ -56,12 +57,12 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMessageThread: (threadId) => dispatch(getMessageThread(threadId))
+    getMessageChannel: (channelId) => dispatch(getMessageChannel(channelId)),
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageThread);
 
 MessageThread.propTypes = {
-  getMessageThread: PropTypes.func.isRequired,
+  getMessageChannel: PropTypes.func.isRequired,
 }

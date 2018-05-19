@@ -1,38 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { setRecipient } from '../../store';
 
 
+function ChannelHead(props) {
+  let user = props.user;
+    const channel = props.channel
+    const otherUsers = channel.users.filter((thisUser) => thisUser.id !== user.id)
 
-class ChannelHead extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      otherUser: this.props.channel.privateMessages[0].senderId !== this.props.user.id ?
-      this.props.channel.privateMessages[0].sender :
-       this.props.channel.privateMessages[0].recipient,
-
-    }
-  }
-
-  componentDidMount() {
-    this.props.setRecipient(this.state.otherUser)
-  }
-
-  render() {
-    const channel = this.props.channel
-
-    // console.log("my props are", props);
-    console.log("my sender id is", channel.privateMessages[0].senderId)
-
-
+    console.log('my props are', props);
     return (
       <Link to={`/messages/${channel.id}`} key={channel.id}>
         <div className="card message-thread">
         <div className="card-body">
           <div className="card-header">
-            <div className="card-title">{this.state.otherUser.username}</div>
+          { otherUsers.map(user => {
+            console.log('my user is', user)
+            return (
+              <div className="card-title" key={user.id}>{user.username}</div>
+            )
+          })
+          }
           </div>
 
           <div className="card-text preview">{channel.privateMessages[0].content}</div>
@@ -41,22 +29,12 @@ class ChannelHead extends Component {
     </Link>
     )
   }
-  }
 
 const mapStateToProps = (state, ownProps) => ({
-  recipient: state.recipient,
-  channel: ownProps.channel
+  channel: ownProps.channel,
+  user: state.user
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setRecipient(user) {
-      dispatch(setRecipient(user))
-    }
-  }
-}
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelHead)
+export default connect(mapStateToProps)(ChannelHead)
 

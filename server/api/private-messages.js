@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, PrivateMessage, Channel, PublicMessage} = require('../db/models')
+const {User, PrivateMessage, Channel, PublicMessage, db} = require('../db/models')
 const Op = require('sequelize').Op
 const Sequelize = require('sequelize')
 
@@ -7,21 +7,10 @@ router.get(`/`, (req, res, next) => {
   console.log("I am in the back end!")
   Channel.findAll({
     include: [{
-      model: PrivateMessage,
-      where: {
-        [Op.or]:
-       [{senderId: req.user.id}, {recipientId: req.user.id}]
-      },
-      include: [{
-        model: User,
-        as: 'recipient'
-      },
-      {
-        model: User,
-        as: 'sender'
-      }
-    ]
-    }]
+      model: PrivateMessage
+    },
+    {model: User, where: {id: req.user.id}}
+    ],
   })
   .then(channels => res.json(channels))
   .catch(next)

@@ -4,27 +4,30 @@ import axios from 'axios';
  * ACTION TYPES
  */
 
-const GET_MESSAGE_THREADS = 'GET_MESSAGE_THREADS';
-const GET_ONE_THREAD = 'GET_ONE_THREAD';
+const GET_MESSAGE_CHANNELS = 'GET_MESSAGE_CHANNELS';
+const GET_ONE_CHANNEL = 'GET_ONE_CHANNEl';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 
 /**
  * INITIAL STATE
  */
-const channels = []
+const channels = {
+  channels: [],
+  messages: []
+}
 
 /**
  * ACTION CREATORS
  */
 
-const getMessageThreads = messageThreads => ({
-  type: GET_MESSAGE_THREADS,
-  messageThreads
+const getMessageChannels = messageChannels => ({
+  type: GET_MESSAGE_CHANNELS,
+  messageChannels
 })
-const getOneThread = thread => ({
-  type: GET_ONE_THREAD,
-  thread
+const getOneChannel = channel => ({
+  type: GET_ONE_CHANNEL,
+  channel
 })
 const sendMessage = message => ({
   type: SEND_MESSAGE,
@@ -42,7 +45,7 @@ export const getMessages = () =>
     axios.get(`/api/messages`)
       .then(res => {
         console.log('my response is', res)
-        let action = getMessageThreads(res.data)
+        let action = getMessageChannels(res.data)
         dispatch(action)
       })
       .catch(error => console.log(error))
@@ -52,11 +55,11 @@ export const getMessages = () =>
 
 
 
-export const getMessageThread = (threadId) =>
+export const getMessageChannel = (channelId) =>
   dispatch =>
-  axios.get(`/api/messages/${threadId}`)
+  axios.get(`/api/messages/${channelId}`)
   .then(res => {
-    dispatch(getOneThread(res.data))
+    dispatch(getOneChannel(res.data))
   })
   .catch(error => console.log(error))
 
@@ -77,13 +80,13 @@ export const sendPrivateMessage = (message) =>
 
 const reducer = (state = channels, action) => {
   switch (action.type) {
-    case GET_MESSAGE_THREADS:
-      console.log("my message threads are", action.messageThreads)
-      return action.messageThreads
-    case GET_ONE_THREAD:
-      return [...action.thread.privateMessages]
+    case GET_MESSAGE_CHANNELS:
+      console.log("my message Channels are", action.messageChannels)
+      return {channels: action.messageChannels, messages: state.messages}
+    case GET_ONE_CHANNEL:
+      return {channels: action.channel, messages: action.channel.privateMessages}
     case SEND_MESSAGE:
-      return [...state, action.message]
+      return {messages: [...state.messages, action.message], channels: state.channels}
 
     default:
       return state

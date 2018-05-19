@@ -13,7 +13,7 @@ const ShoutBox = (props) => (
     </div>
     <div className="card-footer buttonholder">
       <button type="delete">Delete shout</button>
-      <button>Shout back!</button>
+      <button onClick="">Shout back!</button>
     </div>
 
   </div>

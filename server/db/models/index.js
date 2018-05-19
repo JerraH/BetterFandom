@@ -9,6 +9,7 @@ const Channel = require('./channel')
 const PublicMessage = require('./public-messages')
 // const Following = require('../index').Following
 const Op = require('sequelize').Op
+const db = require('../db')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -68,7 +69,7 @@ module.exports = {
   UserProfile,
   Flag,
   Channel,
-  PublicMessage
+  PublicMessage,
 }
 
 

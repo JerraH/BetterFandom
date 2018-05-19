@@ -19,18 +19,18 @@ class UserHome extends Component {
 
 
  render() {
-   const {username} = this.props;
-   const tabs = ['Bit Feed', 'Block Feed', 'Write Bit', 'Write Block'];
+   const username = this.props.username;
+   const tabs = [{name: 'Bit Feed', id: 1}, {name: 'Block Feed', id: 2}, {name: 'Write Bit', id: 3}, {name: 'Write Block', id: 4}];
   return (
 
-      <div className="container">
+      <div className="container userHome">
         <div className="card">
           <div className="card-title">
             <h3>Welcome, {username}</h3>
           </div>
         </div>
-        <div className="card content-block">
-            <Tabs tabs={tabs} />
+        <div className="card tabContainer">
+          <Tabs tabs={tabs} />
         </div>
       </div>
 
@@ -42,6 +42,7 @@ class UserHome extends Component {
  */
 const mapState = (state) => {
   return {
+    user: state.user,
     username: state.user.username,
     email: state.user.email,
     // defaultActiveTabIndex: state.home.defaultActiveTabIndex;

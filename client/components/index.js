@@ -15,8 +15,8 @@ export {default as BlogFeed} from './blogs/blog-feed.jsx';
 
 export {default as BitFeed} from './bits/bit-feed.jsx'
 
-export {Tabs} from './Structural-Items/Tabs.jsx'
-export {Tab} from './Structural-Items/Tab.jsx'
+export {default as Tabs} from './Structural-Items/Tabs.jsx'
+export {default as Tab} from './Structural-Items/Tab.jsx'
 
 export {default as AllMessages} from './messages/AllMessages.jsx'
 export {default as MessageThread} from './messages/message-thread.js'

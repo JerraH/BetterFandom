@@ -2,14 +2,15 @@ import React from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 
 const Tab = (props) => {
+  const tab = props.tab;
   return (
     <ErrorBoundary>
-      <li className="tab">
-    <a
-        onClick={(event) => {
-          event.preventDefault();
-          props.onClick(props.tabIndex);
-    }}>{props.tabName}
+      <li className="nav-item">
+      <a
+      value={tab.id}
+      className="nav-link"
+        onClick={props.handleClick}
+    >{tab.name}
     </a>
 
   </li>

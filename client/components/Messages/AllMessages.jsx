@@ -24,7 +24,6 @@ class AllMessages extends Component {
         <h2>Private Messages</h2>
       { channels && channels.length ?
         channels.map(channel => {
-          console.log("my channel is", channel)
         return (
             <ChannelHead key={channel.id} channel={channel} user={user} />
         )
@@ -38,7 +37,7 @@ class AllMessages extends Component {
 const mapStateToProps = (state) => {
   console.log("are there channels on my state", state.messages)
   return {
-    channels: state.messages,
+    channels: state.messages.channels,
     user: state.user
   }
 

@@ -31,7 +31,7 @@ class Routes extends Component {
         <Route path="/posts/:postid" component={BlogEntry} />
         <Route exact path="/messages" component={AllMessages} />
         <Route exact path="/messages/:userId/publicmessages" component={PublicMessages} />
-        <Route path="/messages/:threadId" component={MessageThread} />
+        <Route path="/messages/:channelId" component={MessageThread} />
         <Route exact path="/users/:userId" component={UserProfile} />
         {/* <Route path="/messages/:userId/:messagethread" component={MessageThread} /> */}
 
