@@ -25,15 +25,18 @@ User.belongsToMany(User, {through: 'BlockList', as: 'BlockedUser'})
 User.hasMany(Post)
 
 PrivateMessage.belongsTo(User, {as: 'sender'})
-PrivateMessage.belongsTo(User, {as: 'recipient'})
+// PrivateMessage.belongsTo(User, {as: 'recipient'})
 
 PublicMessage.belongsTo(User, {as: 'sender'})
 PublicMessage.belongsTo(User, {as: 'recipient'})
 
 PrivateMessage.belongsTo(Channel)
+Channel.belongsToMany(User, {through: 'participants'})
+User.belongsToMany(Channel, {through: 'participants'})
 Channel.hasMany(PrivateMessage)
-Channel.belongsToMany(User, {through: 'conversation'})
-User.belongsToMany(Channel, {through: 'conversation'})
+
+User.hasMany(Post)
+Post.belongsTo(User)
 
 
 User.hasMany(Comment);

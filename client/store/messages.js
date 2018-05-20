@@ -41,7 +41,7 @@ const sendMessage = message => ({
 
 export const getMessages = () =>
   dispatch => {
-    console.log("please let this be working")
+    console.log('please let this be working')
     axios.get(`/api/messages`)
       .then(res => {
         console.log('my response is', res)
@@ -50,9 +50,6 @@ export const getMessages = () =>
       })
       .catch(error => console.log(error))
   }
-
-
-
 
 
 export const getMessageChannel = (channelId) =>
@@ -72,8 +69,6 @@ export const sendPrivateMessage = (message) =>
   .catch(error => console.log(error))
 
 
-
-
 /**
  * REDUCER
  */
@@ -81,8 +76,8 @@ export const sendPrivateMessage = (message) =>
 const reducer = (state = channels, action) => {
   switch (action.type) {
     case GET_MESSAGE_CHANNELS:
-      console.log("my message Channels are", action.messageChannels)
-      return {channels: action.messageChannels, messages: state.messages}
+      console.log('my message Channels are', action.messageChannels)
+      return {channels: action.messageChannels}
     case GET_ONE_CHANNEL:
       return {channels: action.channel, messages: action.channel.privateMessages}
     case SEND_MESSAGE:

@@ -33,7 +33,7 @@ describe('User routes', () => {
     beforeEach(async function() {
       const PMs = await Promise.all([
         PrivateMessage.create({
-          content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3
+          content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3, channelId: 1
         }),
         PrivateMessage.create({
           content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5, channelId: 3

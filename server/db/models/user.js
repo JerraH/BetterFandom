@@ -51,7 +51,6 @@ User.prototype.blackMark = function () {
 }
 
 
-
 /**
  * classMethods
  */

@@ -1,17 +1,16 @@
 const router = require('express').Router()
-const {User, PrivateMessage, Channel, PublicMessage, db} = require('../db/models')
+const {User, PrivateMessage, Channel, PublicMessage} = require('../db/models')
+const db = require('../db')
 const Op = require('sequelize').Op
 const Sequelize = require('sequelize')
 
 router.get(`/`, (req, res, next) => {
-  console.log("I am in the back end!")
+  let Participant = db.models.participants
+  console.log(req.user.id)
   Channel.findAll({
-    include: [{
-      model: PrivateMessage
-    },
-    {model: User, where: {id: req.user.id}}
-    ],
-  })
+    include: [{model: User, through: Participant, where: {
+      id: req.user.id
+    }}, {model: PrivateMessage}]})
   .then(channels => res.json(channels))
   .catch(next)
 })
@@ -43,7 +42,7 @@ router.post('/:userId/publicmessage', (req, res, next) => {
 })
 
 router.get('/:userId/publicmessages', (req, res, next) => {
-  console.log("I am in the back!")
+  console.log('I am in the back!')
   PublicMessage.findAll({where:
     {recipientId: req.params.userId},
     include: [

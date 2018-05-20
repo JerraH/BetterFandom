@@ -16,8 +16,12 @@ router.get('/blocks', (req, res, next) => {
      where: {
       userId: {
         [Op.or]: following
-      }
-    }
+      },
+      type: 'blog'
+    },
+    include: [{
+      model: User
+    }]
   })
   )
   .then(blogFeed => res.json(blogFeed))
