@@ -43,6 +43,7 @@ const mapStateToProps = (state) => {
 
 }
 
+<<<<<<< HEAD
 const mapDispatch = (dispatch) => {
   return {
     getAllMessages() {
@@ -57,3 +58,15 @@ export default connect(mapStateToProps, mapDispatch)(AllMessages)
 AllMessages.propTypes = {
   getAllMessages: PropTypes.func.isRequired,
 }
+=======
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getAllMessages() {
+//       dispatch(getMessages())
+//     }
+//   }
+// };
+
+
+export default connect(mapStateToProps)(AllMessages)
+>>>>>>> dea4b2c92f4e0bf259475097d1bb271364ee6ba4
