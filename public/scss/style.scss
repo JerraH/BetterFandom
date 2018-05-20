@@ -1,5 +1,7 @@
 @import 'variables';
 @import 'forms';
+@import '../../node_modules/react-tabs/style/react-tabs.scss';
+
 
 html {
   box-sizing: border-box;
@@ -17,8 +19,15 @@ html {
 }
 
 
+
 .card-title {
+  padding:1rem;
+  h3 {
+    margin-bottom:0;
+  }
+
   &.username {
+
   font-size:1.2rem;
   font-weight:bold;
 }

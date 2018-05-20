@@ -18,7 +18,7 @@ const db = require('../db')
  *    BlogPost.belongsTo(User)
  */
 
-User.belongsToMany(User, {through: 'Following', as: 'Follower'})
+const Following = User.belongsToMany(User, {through: 'Following', as: 'Follower'})
 
 User.belongsToMany(User, {through: 'BlockList', as: 'BlockedUser'})
 
@@ -53,8 +53,6 @@ Flag.belongsTo(User, {as: 'Reporter'})
 // User.belongsToMany(User, {through: 'Following', as: 'Follow'})
 
 
-
-
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -70,34 +68,33 @@ module.exports = {
   Flag,
   Channel,
   PublicMessage,
+  Following
 }
 
 
-User.prototype.getFeed = function() {
-  User.findAll(
-    {where: {
-    followerId: this.id
-  }}, {
-    attributes: 'userId'
-  })
-  .then(followingUsers => Post.findAll({
-    where: {
-      userId: {
-        [Op.contained]: followingUsers
-      },
-      include: [
-        {
-       model: Comment
-      }
-  ]
-    }
-  }))
-}
-// include: [
+// User.getFeed = function(user) {
+//  User.findAll(
+//     {include: [{model: Following, where: {FollowerId: user.id}}]
+//   })
+//   .then(followingUsers => {console.log(followingUsers)
+//     return followingUsers})
+//   .then(followingUsers => Post.findAll({
+//     where: {
+//       userId: {
+//         [Op.contained]: followingUsers
+//       },
+//       include: [
+//         {
+//        model: Comment
+//       }
+//   ]
+//     }
+//   }))
+// }
+// // include: [
 //   {
 //     model: db.posts,
 //
 //   }
 // ]
-
 

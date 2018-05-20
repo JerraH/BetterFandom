@@ -1,26 +1,19 @@
 
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {WriteBlogEntry, Tabs} from '../index';
-import { Link } from 'react-router-dom';
+import {WriteBlogEntry, BlogFeed, BitFeed} from '../index';
 import React, { Component } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
+import { Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 
 /**
  * COMPONENT
  */
 class UserHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTabIndex: 1
-    };
-  }
-
 
  render() {
    const username = this.props.username;
-   const tabs = [{name: 'Bit Feed', id: 1}, {name: 'Block Feed', id: 2}, {name: 'Write Bit', id: 3}, {name: 'Write Block', id: 4}];
+
   return (
 
       <div className="container userHome">
@@ -29,9 +22,28 @@ class UserHome extends Component {
             <h3>Welcome, {username}</h3>
           </div>
         </div>
-        <div className="card tabContainer">
-          <Tabs tabs={tabs} />
-        </div>
+        <Tabs>
+            <TabList className="nav nav-tabs">
+                <Tab className="nav-item">Bit Feed</Tab>
+                <Tab className="nav-item">Block Feed</Tab>
+                <Tab className="nav-item">Write Bit</Tab>
+                <Tab className="nav-item">Write Block</Tab>
+            </TabList>
+          <div className="card tabContent">
+            <TabPanel>
+              <BitFeed />
+            </TabPanel>
+            <TabPanel>
+              <BlogFeed />
+            </TabPanel>
+            <TabPanel>
+              <div className="card">Future Content GOes Here</div>
+            </TabPanel>
+            <TabPanel>
+              <WriteBlogEntry />
+            </TabPanel>
+          </div>
+        </Tabs>
       </div>
 
   ) } }

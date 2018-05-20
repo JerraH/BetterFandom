@@ -55,13 +55,16 @@ class WriteBlogEntry extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  user: state.user
-})
+// const mapStateToProps = (state, ownProps) => ({
+//   user: state.user
+// })
 
-const mapDispatchToProps = (dispatch) => {
+// const mapDispatchToProps = (dispatch) => {
+//   handleSubmit (evt) {
+//       dispatch(auth(email, password, formName))
+//     }
 
-}
+// }
 
 
 export default WriteBlogEntry;
