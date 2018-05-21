@@ -1,6 +1,8 @@
 @import 'variables';
 @import 'forms';
 @import '../../node_modules/react-tabs/style/react-tabs.scss';
+@import 'feed';
+@import 'privateMessages';
 
 
 html {
@@ -92,21 +94,4 @@ input {
   min-height: 100vh;
 }
 
-.chat.container {
-  max-width:600px;
-  .message-left {
-    max-width: 75%;
-    margin-right: 25%;
-    align-self:flex-start;
-  }
 
-  .message-right {
-    max-width: 75%;
-    align-self:flex-end;
-    background-color:$blue;
-    margin-left: 25%
-  }
-  .form-group {
-    padding: .5rem;
-  }
-}

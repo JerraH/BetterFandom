@@ -28,5 +28,29 @@ router.get('/blocks', (req, res, next) => {
     .catch(next)
   })
 
+router.get('/bits', (req, res, next) => {
+  console.log(db.models.Following)
+  let Following = db.models.Following
+  return Following.findAll({
+  where: {
+    FollowerId: req.user.id,
+  }, attributes: ['userId']})
+  .then(users => users.map(user => user.userId))
+  .then(following => Post.findAll({
+     where: {
+      userId: {
+        [Op.or]: following
+      },
+      type: 'bit'
+    },
+    include: [{
+      model: User
+    }]
+  })
+  )
+  .then(blogFeed => res.json(blogFeed))
+    .catch(next)
+  })
+
 
 module.exports = router;

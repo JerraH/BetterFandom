@@ -13,7 +13,6 @@ class ChatReply extends Component {
   }
 
 
-
  handleChange = (event) => {
     event.preventDefault()
     this.setState({[event.target.name]: event.target.value})
@@ -22,10 +21,10 @@ class ChatReply extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("recipientId", this.props.recipientId)
+    console.log('recipientId', this.props.recipientId)
     console.log('senderId', this.props.user.id)
     //here do a dispatch
-    sendPrivateMessage({content: event.target.value, recipientId: this.props.recipientId, channelId: this.props.channelId, senderId: this.props.user.id })
+    sendPrivateMessage({content: event.target.value, channelId: this.props.channelId, senderId: this.props.user.id })
   }
 
   render() {

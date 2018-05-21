@@ -62,7 +62,7 @@ export const getMessageChannel = (channelId) =>
 
 export const sendPrivateMessage = (message) =>
   dispatch =>
-  axios.post(`/api/${message.recipientId}`, message)
+  axios.post(`/api/messages`, message)
   .then(res => {
     dispatch(sendMessage(res.data))
   })

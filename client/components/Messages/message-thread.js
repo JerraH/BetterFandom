@@ -16,10 +16,9 @@ class MessageThread extends Component {
   }
 
 
-
   componentDidMount() {
     let channelId = this.props.match.params.channelId
-    this.props.getMessageChannel(channelId);
+    this.props.boundgetMessageChannel(channelId);
   }
 
 
@@ -27,14 +26,15 @@ class MessageThread extends Component {
     // this.props.messages[0].senderId !== this.props.user.id ?
     //   recipientId = this.props.messages[0].senderId :
     //   recipientId = this.props.messages[0].recipientId
-    console.log("my messages are", this.props.messages)
+    console.log('my messages are', this.props.messages)
+    let messages = this.props.messages
     return (
       <div className="container chat">
         <h3>{this.props.channel.users}</h3>
-          {this.props.messages.map(message => {
+          {messages.map(message => {
             return (
               <ErrorBoundary key={message.id}>
-                <Message key={message.id} message={message} />
+                  <Message key={message.id} message={message} />
               </ErrorBoundary>
             )
           })
@@ -53,16 +53,14 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 
-
-
 const mapDispatchToProps = dispatch => {
   return {
-    getMessageChannel: (channelId) => dispatch(getMessageChannel(channelId)),
+    boundgetMessageChannel: (channelId) => dispatch(getMessageChannel(channelId)),
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageThread);
 
 MessageThread.propTypes = {
-  getMessageChannel: PropTypes.func.isRequired,
+  boundgetMessageChannel: PropTypes.func.isRequired,
 }

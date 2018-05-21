@@ -17,7 +17,7 @@ class AllMessages extends Component {
   render(){
   const channels = this.props.channels
   const user = this.props.user
-    console.log("my channels are", channels)
+    console.log('my channels are', channels)
     return (
 
       <div className="container">
@@ -35,7 +35,7 @@ class AllMessages extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log("are there channels on my state", state.messages)
+  console.log('are there channels on my state', state.messages)
   return {
     channels: state.messages.channels,
     user: state.user
@@ -43,7 +43,6 @@ const mapStateToProps = (state) => {
 
 }
 
-<<<<<<< HEAD
 const mapDispatch = (dispatch) => {
   return {
     getAllMessages() {
@@ -58,15 +57,3 @@ export default connect(mapStateToProps, mapDispatch)(AllMessages)
 AllMessages.propTypes = {
   getAllMessages: PropTypes.func.isRequired,
 }
-=======
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getAllMessages() {
-//       dispatch(getMessages())
-//     }
-//   }
-// };
-
-
-export default connect(mapStateToProps)(AllMessages)
->>>>>>> dea4b2c92f4e0bf259475097d1bb271364ee6ba4

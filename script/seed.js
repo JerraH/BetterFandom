@@ -23,24 +23,24 @@ async function seed () {
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123', username: 'whisperwood'}),
     User.create({email: 'murphy@email.com', password: '123', username: 'FranticFourteen'}),
-    User.create({email: 'jerra.haynes@gmail.com', password: '123', username: 'The_Black_Hole'}),
     User.create({email: 'hellomybaby@gmail.com', password: '123', username: 'MsMarvel'}),
     User.create({email: 'whispers@aol.com', password: '123', username: 'NoThatIsn\'tCopyrighted'}),
     User.create({email: 'whereveryougo@gmail.com', password: '123', username: 'LetMyPeopleGo'}),
     User.create({email: 'fuckthisshithonestly@gmail.com', password: '123', username: 'DeadMan\'sChest'}),
     User.create({email: 'whatislove@aol.com', password: '123', username: 'whereverIgo'}),
     User.create({email: 'toofreakinquiet@aol.com', password: '123', username: 'whateverIdo'}),
+    User.create({email: 'jerra.haynes@gmail.com', password: '123', username: 'The_Black_Hole'})
   ])
   const postList = await Promise.all([
-    Post.create({content: "Ennui kitsch actually scenester et gastropub try-hard cred. Mustache dolore pabst echo park pug. Chicharrones offal irony bicycle rights mustache pop-up, af dolore esse kickstarter yr. Chia ennui neutra, pok pok lumbersexual selvage bushwick food truck kinfolk dolore. Pug slow-carb proident air plant VHS nostrud mustache. Velit +1 activated charcoal dolore cliche kogi williamsburg deserunt chicharrones mollit raclette austin umami.", userId: 4}),
-    Post.create({content: "Reprehenderit truffaut migas bitters qui bushwick la croix tumeric XOXO health goth YOLO brooklyn. Deserunt commodo proident sint cold-pressed literally quinoa elit vegan air plant food truck. Chicharrones palo santo bicycle rights lumbersexual, man bun aesthetic elit hot chicken skateboard tote bag ut hexagon. Veniam mlkshk gochujang hexagon cliche laborum. Roof party hella raclette readymade chambray tousled brooklyn mustache. +1 schlitz irony, in banh mi fam hot chicken.", userId: 6}),
-    Post.create({content: "Copper mug brooklyn bicycle rights, hexagon selfies bushwick schlitz edison bulb mumblecore lo-fi tumblr. Portland cray hell of cred etsy pickled franzen hexagon pabst gastropub. Helvetica shaman gentrify, air plant brooklyn knausgaard cred waistcoat XOXO wolf jianbing. Echo park unicorn subway tile, taiyaki mlkshk semiotics umami lomo.    ", userId: 3}),
-    Post.create({content: "Hackathon technology crowdsource. Network effects holy grail conversion. Business-to-consumer prototype business model canvas innovator startup. Ownership first mover advantage twitter incubator MVP assets traction technology learning curve.", userId: 1}),
-    Post.create({content: "Hackathon technology crowdsource. Network effects holy grail conversion. Business-to-consumer prototype business model canvas innovator startup. Ownership first mover advantage twitter incubator MVP assets traction technology learning curve.", userId: 2}),
-    Post.create({content: "Non-disclosure agreement iPhone accelerator creative founders graphical user interface gamification. Sales gamification interaction design traction focus scrum project incubator success disruptive holy grail. Technology agile development startup conversion interaction design android infographic MVP partnership iPad first mover advantage. Vesting period accelerator responsive web design social media beta long tail.", userId: 7}),
+    Post.create({content: 'Ennui kitsch actually scenester et gastropub try-hard cred. Mustache dolore pabst echo park pug. Chicharrones offal irony bicycle rights mustache pop-up, af dolore esse kickstarter yr. Chia ennui neutra, pok pok lumbersexual selvage bushwick food truck kinfolk dolore. Pug slow-carb proident air plant VHS nostrud mustache. Velit +1 activated charcoal dolore cliche kogi williamsburg deserunt chicharrones mollit raclette austin umami.', userId: 4}),
+    Post.create({content: 'Reprehenderit truffaut migas bitters qui bushwick la croix tumeric XOXO health goth YOLO brooklyn. Deserunt commodo proident sint cold-pressed literally quinoa elit vegan air plant food truck. Chicharrones palo santo bicycle rights lumbersexual, man bun aesthetic elit hot chicken skateboard tote bag ut hexagon. Veniam mlkshk gochujang hexagon cliche laborum. Roof party hella raclette readymade chambray tousled brooklyn mustache. +1 schlitz irony, in banh mi fam hot chicken.', userId: 6}),
+    Post.create({content: 'Copper mug brooklyn bicycle rights, hexagon selfies bushwick schlitz edison bulb mumblecore lo-fi tumblr. Portland cray hell of cred etsy pickled franzen hexagon pabst gastropub. Helvetica shaman gentrify, air plant brooklyn knausgaard cred waistcoat XOXO wolf jianbing. Echo park unicorn subway tile, taiyaki mlkshk semiotics umami lomo.    ', userId: 3}),
+    Post.create({content: 'Hackathon technology crowdsource. Network effects holy grail conversion. Business-to-consumer prototype business model canvas innovator startup. Ownership first mover advantage twitter incubator MVP assets traction technology learning curve.', userId: 1}),
+    Post.create({content: 'Hackathon technology crowdsource. Network effects holy grail conversion. Business-to-consumer prototype business model canvas innovator startup. Ownership first mover advantage twitter incubator MVP assets traction technology learning curve.', userId: 2}),
+    Post.create({content: 'Non-disclosure agreement iPhone accelerator creative founders graphical user interface gamification. Sales gamification interaction design traction focus scrum project incubator success disruptive holy grail. Technology agile development startup conversion interaction design android infographic MVP partnership iPad first mover advantage. Vesting period accelerator responsive web design social media beta long tail.', userId: 7}),
     Post.create({content: "If You Can Watch This And Not Feel Surprised, Then You're Made Of Stone", userId: 4}),
-    Post.create({content: "Was This Queer Physicist Actually A Forger?", userId: 5}),
-    Post.create({content: "Facebook iPad monetization technology business plan bootstrapping analytics churn rate funding prototype. Direct mailing niche market churn rate. Technology channels investor iPhone alpha business plan MVP creative metrics agile development entrepreneur incubator social proof. Leverage network effects early adopters branding hypotheses partnership.", userId: 5}),
+    Post.create({content: 'Was This Queer Physicist Actually A Forger?', userId: 5}),
+    Post.create({content: 'Facebook iPad monetization technology business plan bootstrapping analytics churn rate funding prototype. Direct mailing niche market churn rate. Technology channels investor iPhone alpha business plan MVP creative metrics agile development entrepreneur incubator social proof. Leverage network effects early adopters branding hypotheses partnership.', userId: 5}),
   ])
   const followers = await Promise.all([
     users[0].addFollower(users[6]),
@@ -49,6 +49,7 @@ async function seed () {
     users[0].addFollower(users[1]),
     users[0].addFollower(users[5]),
   ])
+  PrivateMessage.sendMessage({content: 'Mary had a little lamb her fleece was white as snow', recipientId: 9, senderId: 3})
   const userProfiles = await Promise.all([
     UserProfile.create({filteredWords: ['strawberry', 'missus', 'girlfriend', 'fifteen'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
     UserProfile.create({filteredWords: ['strawberry'], postBlacklist: [], postGraylist: [], about: 'fourscore and seven years ago our fathers brought forth upon this continent a new nation', gender: 'male', pronouns: 'he/him'}),
@@ -86,19 +87,19 @@ async function seed () {
       content: 'hi my name is jerra what is your name', senderId: 4, recipientId: 3, channelId: 1
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5, channelId: 3
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 5, channelId: 2
     }),
     PrivateMessage.create({
-      content: 'Akatsuki no kuruma wo miokutte', senderId: 3, recipientId: 5, channelId: 3
+      content: 'Akatsuki no kuruma wo miokutte', senderId: 3, recipientId: 5, channelId: 2
     }),
     PrivateMessage.create({
-      content: 'hi I love you!', senderId: 5, recipientId: 3
+      content: 'hi I love you!', senderId: 5, recipientId: 3, channelId: 2
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 3
     }),
     PrivateMessage.create({
-      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6
+      content: 'hi my name is jerra what is your name', senderId: 3, recipientId: 6, channelId: 3
     }),
   ])
   const asks = await Promise.all([
@@ -115,7 +116,7 @@ async function seed () {
       content: 'WELL ali baba had dem 40 thieves', senderId: 5, recipientId: 3
     }),
     PublicMessage.create({
-      content: 'Scherezade had a thousand tales', senderId: 3, recipientId: 6, channelId: 2
+      content: 'Scherezade had a thousand tales', senderId: 3, recipientId: 6
     }),
     PublicMessage.create({
       content: 'master you in luck cause UP YOUR SLEEVE you got a brand of magic never fails!', senderId: 3, recipientId: 6
@@ -142,10 +143,6 @@ async function seed () {
   //     });
   //   })
   // )
-
-
-
-
 
 
     // Wowzers! We can even `await` on the right-hand side of the assignment operator

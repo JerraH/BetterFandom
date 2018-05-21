@@ -1,25 +1,26 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 
 function Message(props) {
   let message = props.message;
-  console.log("my message is", message)
+  console.log('my message is', message)
+  console.log(message.senderId, props.user.id)
   return (
     <div>
         { message.senderId === props.user.id ?
-          <div className="card message-right">
-            <div className="card-body">
-              <p className="card-text">{message.content}</p>
+          <div className="messageBox forRight">
+            <div className="message-right">
+              {message.content}
             </div>
           </div> :
-          <div className="card message-left">
-            <div className="card-body">
-            <p className="card-title username">
-                {message.sender.username}
+          <div className="messageBox forLeft">
+            <div className="message-left">
+              <p className="username">
+                  {message.sender.username}
               </p>
-              <p className="card-text">{message.content}</p>
-            </div>
+              {message.content}
+              </div>
           </div>
         }
     </div>

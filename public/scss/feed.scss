@@ -1,0 +1,15 @@
+@import 'variables';
+
+.post {
+  .userbox {
+    display: flex;
+    .avatar {
+      flex: 1 1 auto;
+      max-width: 50px;
+      min-width: 20px;
+    }
+    .username {
+      flex: 1 1 auto;
+    }
+  }
+}

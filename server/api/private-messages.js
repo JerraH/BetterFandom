@@ -4,6 +4,9 @@ const db = require('../db')
 const Op = require('sequelize').Op
 const Sequelize = require('sequelize')
 
+
+//Get private messages: this is intended to be used on the list of private message threads page
+
 router.get(`/`, (req, res, next) => {
   let Participant = db.models.participants
   console.log(req.user.id)
@@ -15,24 +18,29 @@ router.get(`/`, (req, res, next) => {
   .catch(next)
 })
 
+//one individual conversation
+
 router.get('/:channelId', (req, res, next) => {
+  console.log('I am here')
   Channel.findById(req.params.channelId, {
     include: [{
       model: PrivateMessage,
-      include: [{
-        model: User,
-        as: 'recipient'
-      },
-      {
-        model: User,
-        as: 'sender'
-      }
-    ]}]
+      include: [{model: User, as: 'sender'}]
+    }]
   })
   .then(messages => res.json(messages))
   .catch(next)
 })
 
+
+//send somebody a private message
+router.post('/', (req, res, next) => {
+  PrivateMessage.sendMessage(req.body)
+  .then(message => res.json(message))
+  .catch(next)
+})
+
+//shout at somebody
 router.post('/:userId/publicmessage', (req, res, next) => {
   console.log(req.body)
   PublicMessage.sendMessage(req.body)
@@ -41,6 +49,7 @@ router.post('/:userId/publicmessage', (req, res, next) => {
   // .catch(next)
 })
 
+//get your shouts
 router.get('/:userId/publicmessages', (req, res, next) => {
   console.log('I am in the back!')
   PublicMessage.findAll({where:
@@ -52,6 +61,7 @@ router.get('/:userId/publicmessages', (req, res, next) => {
   .then(asks => res.json(asks))
   .catch(next)
 })
+
 
 module.exports = router
 

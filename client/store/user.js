@@ -48,8 +48,11 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-
-
+export const findUser = (user) =>
+  dispatch =>
+      axios.get('/api/users')
+      .then(dispatch(getUser(user)))
+      .catch(err => console.log(err))
 
 
 /**

@@ -32,6 +32,7 @@ PublicMessage.belongsTo(User, {as: 'recipient'})
 
 PrivateMessage.belongsTo(Channel)
 Channel.belongsToMany(User, {through: 'participants'})
+Channel.hasMany(User)
 User.belongsToMany(Channel, {through: 'participants'})
 Channel.hasMany(PrivateMessage)
 
@@ -54,6 +55,29 @@ User.hasMany(Flag)
 Flag.belongsTo(User, {as: 'FlaggedUser'})
 Flag.belongsTo(User, {as: 'Reporter'})
 // User.belongsToMany(User, {through: 'Following', as: 'Follow'})
+
+PrivateMessage.sendMessage = (message) => {
+  if (message.channelId) {
+    PrivateMessage.create(message)
+  } else {
+    let myMessage
+    PrivateMessage.create({content: message.content})
+    .then(newmessage => newmessage.setSender(message.senderId))
+    .then(newmessage =>  {
+      return Channel.create()
+      .then(myChannel => newmessage.setChannel(myChannel))
+      .then(returned => {
+        return Channel.findById(returned.channelId)
+      })
+      .then(channel => channel.addUser([message.recipientId, message.senderId]))
+      })
+      .catch()
+
+
+      // myChannel.addUser(message.senderId)
+      // myChannel.addUser(message.recipientId)
+  }
+}
 
 
 /**

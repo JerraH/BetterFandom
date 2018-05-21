@@ -11,7 +11,7 @@ class Comment extends Component {
 
  handleChange = (event) => {
     event.preventDefault()
-    this.setState(event.target.name = event.target.value)
+    this.setState({[event.target.name]: event.target.value})
     console.log(this.state.comment)
   }
 
@@ -24,9 +24,9 @@ handleSubmit = (event) => {
     return (
       <div className="card">
         <input onChange={this.handleChange} type="textArea" name="comment" value={this.state.comment} />
-        <div className="buttonholder">
-          <button>Submit</button>
-          <button>Cancel</button>
+        <div className="buttonholder card-footer">
+          <button className="btn btn-primary">Submit</button>
+          <button className="btn btn-cancel">Cancel</button>
         </div>
       </div>
     );
@@ -34,5 +34,4 @@ handleSubmit = (event) => {
 }
 
 export default Comment;
-
 
