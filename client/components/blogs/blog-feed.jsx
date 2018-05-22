@@ -4,10 +4,6 @@ import {connect} from 'react-redux';
 import {getBlockFeed} from '../../store/feed'
 
 class BlogFeed extends Component {
-  constructor(props) {
-    super(props);
-    }
-
 
   componentDidMount() {
     this.props.getBlockFeedBound(this.props.user)

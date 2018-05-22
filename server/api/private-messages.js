@@ -10,11 +10,21 @@ const Sequelize = require('sequelize')
 router.get(`/`, (req, res, next) => {
   let Participant = db.models.participants
   console.log(req.user.id)
-  Channel.findAll({
-    include: [{model: User, through: Participant, where: {
-      id: req.user.id
-    }}, {model: PrivateMessage}]})
-  .then(channels => res.json(channels))
+  Participant.findAll({where: {
+      userId: req.user.id
+    }})
+    .then(participants => participants.map(participant => participant.channelId))
+    .then(channels => {
+      console.log('channels', channels)
+      return Channel.findAll({
+      where: {
+        id: {
+          [Op.or]: channels
+        }
+      }, include: [{model: PrivateMessage, include: {model: User, as: 'sender'}}]
+    })})
+  .then(channels => res.json(channels) )
+  // res.json(channels))
   .catch(next)
 })
 

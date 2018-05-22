@@ -20,7 +20,6 @@ class UserProfile extends Component {
   }
 
 
-
   shoutAt() {
     this.setState({openMessage: true});
   }
@@ -29,9 +28,8 @@ class UserProfile extends Component {
   }
 
 
-
   render() {
-    console.log("my user profile is", this.props.userProfile)
+    console.log('my user profile is', this.props.userProfile)
     console.log(this.props.user)
     return (
       <ErrorBoundary>
@@ -53,8 +51,8 @@ class UserProfile extends Component {
               <div className="card-title">About Me</div>
             </div>
           </div>
-          <div></div>
-          <div></div>
+          <div />
+          <div />
         </div>
       </div>
       </ErrorBoundary>
@@ -71,14 +69,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getOtherUser(desiredUser) {
+    getOtherUserBound(desiredUser) {
       dispatch(getOtherUser(desiredUser))
     }
 
   }
 }
-
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

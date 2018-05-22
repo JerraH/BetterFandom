@@ -6,6 +6,8 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const FIND_USER = 'FIND_USER'
+
 
 /**
  * INITIAL STATE
@@ -17,6 +19,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const findOtherUser = user => ({type: FIND_USER, user})
 
 /**
  * THUNK CREATORS
@@ -64,6 +67,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser;
+    case FIND_USER: //currently nonfunctional
+      return action.userInfo;
     default:
       return state
   }

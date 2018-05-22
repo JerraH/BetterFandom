@@ -26,22 +26,27 @@ class MessageThread extends Component {
     // this.props.messages[0].senderId !== this.props.user.id ?
     //   recipientId = this.props.messages[0].senderId :
     //   recipientId = this.props.messages[0].recipientId
+    console.log('???', this.state.messages)
     console.log('my messages are', this.props.messages)
     let messages = this.props.messages
     return (
+
       <div className="container chat">
         <h3>{this.props.channel.users}</h3>
-          {messages.map(message => {
+        <ErrorBoundary>
+          {messages ? messages.map(message => {
             return (
-              <ErrorBoundary key={message.id}>
                   <Message key={message.id} message={message} />
-              </ErrorBoundary>
+
             )
-          })
+          }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>
         }
+        </ErrorBoundary>
         <ChatReply channelId={this.state.channelId} />
       </div>
+
     )
+
   }
 }
 

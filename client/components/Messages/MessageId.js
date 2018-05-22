@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 
 function Message(props) {
@@ -17,7 +18,7 @@ function Message(props) {
           <div className="messageBox forLeft">
             <div className="message-left">
               <p className="username">
-                  {message.sender.username}
+                  <Link to={`/users/${message.sender.id}`} key={message.sender.id}>{message.sender.username}</Link>
               </p>
               {message.content}
               </div>
