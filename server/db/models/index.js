@@ -57,11 +57,12 @@ Flag.belongsTo(User, {as: 'Reporter'})
 // User.belongsToMany(User, {through: 'Following', as: 'Follow'})
 
 PrivateMessage.sendMessage = (message) => {
+  console.log(message)
   let myMessage;
   if (message.channelId) {
-    PrivateMessage.create(message)
+    return PrivateMessage.create(message)
   } else {
-    PrivateMessage.create({content: message.content})
+    return PrivateMessage.create({content: message.content})
     .then(newmessage => {
       myMessage = newmessage
       return myMessage.setSender(message.senderId)})

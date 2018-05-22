@@ -24,18 +24,20 @@ class ChatReply extends Component {
     console.log('recipientId', this.props.recipientId)
     console.log('senderId', this.props.user.id)
     //here do a dispatch
-    sendPrivateMessage({content: event.target.value, channelId: this.props.channelId, senderId: this.props.user.id })
+    this.props.sendPrivateMessageBound({content: this.state.message, channelId: this.props.channelId, senderId: this.props.user.id })
+    this.setState({message: ''})
   }
+
 
   render() {
     return (
       <div className="card chat-reply">
-        <div className="form-group">
+        <form className="form-group" onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} className="form-control" type="textArea" name="message" value={this.state.message} />
           <div className="buttonholder card-footer">
-            <button className="btn btn-primary" onClick={this.handleSubmit}>Send</button>
+            <button type="submit" className="btn btn-primary">Send</button>
           </div>
-        </div>
+        </form>
       </div>
     );
   }
@@ -48,7 +50,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendPrivateMessage(message) {
+    sendPrivateMessageBound(message) {
       dispatch(sendPrivateMessage(message))
     }
   }
