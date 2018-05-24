@@ -6,11 +6,15 @@ const Post = db.define('post', {
     type: Sequelize.STRING
   },
   content: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    require: true
   }, type: {
     type: Sequelize.ENUM('blog', 'bit', 'image', 'sounds', 'chat')
   }, status: {
     type: Sequelize.ENUM('saved', 'posted')
+  },
+  likes: {
+    type: Sequelize.INTEGER
   }
 })
 

@@ -6,6 +6,12 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const FIND_USER = 'FIND_USER'
+const SET_FOLLOWER = 'SET_FOLLOWER'
+const REMOVE_FOLLOWER = 'REMOVE_FOLLOWERS'
+const GET_FOLLOWING = 'GET_FOLLOWING'
+const GET_FOLLOWERS = 'GET_FOLLOWERS'
+
 
 /**
  * INITIAL STATE
@@ -17,6 +23,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const findOtherUser = user => ({type: FIND_USER, user})
 
 /**
  * THUNK CREATORS
@@ -48,6 +55,13 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const findUser = (user) =>
+  dispatch =>
+      axios.get('/api/users')
+      .then(dispatch(getUser(user)))
+      .catch(err => console.log(err))
+
+
 /**
  * REDUCER
  */
@@ -56,7 +70,9 @@ export default function (state = defaultUser, action) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
-      return defaultUser
+      return defaultUser;
+    case FIND_USER: //currently nonfunctional
+      return action.userInfo;
     default:
       return state
   }

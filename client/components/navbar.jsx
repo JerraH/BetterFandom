@@ -6,12 +6,12 @@ import {logout} from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn, user }) => (
 
-    <nav className="navbar navbar-expand-md navbar-light bg-light ">
+    <nav className="navbar navbar-expand-md">
 
       {isLoggedIn ? (
 
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item"><a className="navbar-brand" href="#">Better Fandom</a></li>
+            <li className="nav-item"><a className="navbar-brand" href="/home">Better Fandom</a></li>
           {/* The navbar will show these links after you log in */}
 
             <li className="nav-item">
@@ -23,20 +23,24 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
               </a>
             </li>
             <li className="nav-item">
-              <Link to="/blog-feed" className="nav-link" >Feed</Link>
+              <Link to="/block-feed" className="nav-link" >Feed</Link>
             </li>
             <li className="nav-item">
               <Link to={`/messages`} className="nav-link" >Messages</Link>
             </li>
+            <li className="nav-item">
+              <Link to={`/messages/${user.id}/publicmessages`} className="nav-link" >Shouts</Link>
+            </li>
           </ul>
 
       ) : (
-        <div>
+        <ul className="navbar-nav mr-auto">
+        <li className="nav-item"><a className="navbar-brand" href="/home">Better Fandom</a></li>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/explore">Explore</Link>
-        </div>
+          <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+          <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+          <li className="nav-item"><Link className="nav-link" to="/explore">Explore</Link></li>
+        </ul>
       )}
       </nav>
 )

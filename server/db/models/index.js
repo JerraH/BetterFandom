@@ -5,8 +5,11 @@ const Tag = require('./tag')
 const PrivateMessage = require('./private-messages')
 const UserProfile = require('./user-profile')
 const Flag = require('./flag')
+const Channel = require('./channel')
+const PublicMessage = require('./public-messages')
 // const Following = require('../index').Following
 const Op = require('sequelize').Op
+const db = require('../db')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -15,14 +18,27 @@ const Op = require('sequelize').Op
  *    BlogPost.belongsTo(User)
  */
 
-User.belongsToMany(User, {through: 'Following', as: 'Follower'})
+const Following = User.belongsToMany(User, {through: 'Following', as: 'Follower'})
 
 User.belongsToMany(User, {through: 'BlockList', as: 'BlockedUser'})
 
 User.hasMany(Post)
 
 PrivateMessage.belongsTo(User, {as: 'sender'})
-PrivateMessage.belongsTo(User, {as: 'recipient'})
+// PrivateMessage.belongsTo(User, {as: 'recipient'})
+
+PublicMessage.belongsTo(User, {as: 'sender'})
+PublicMessage.belongsTo(User, {as: 'recipient'})
+
+PrivateMessage.belongsTo(Channel)
+Channel.belongsToMany(User, {through: 'participants'})
+Channel.hasMany(User)
+User.belongsToMany(Channel, {through: 'participants'})
+Channel.hasMany(PrivateMessage)
+
+User.hasMany(Post)
+Post.belongsTo(User)
+
 
 User.hasMany(Comment);
 
@@ -32,14 +48,37 @@ Tag.belongsToMany(Post, {through: 'TaggedAs'});
 Post.belongsToMany(Comment, {through: 'CommentThread'})
 Comment.hasOne(Post);
 
-User.hasOne(UserProfile)
+User.belongsTo(UserProfile);
+UserProfile.hasOne(User)
 
 User.hasMany(Flag)
 Flag.belongsTo(User, {as: 'FlaggedUser'})
 Flag.belongsTo(User, {as: 'Reporter'})
 // User.belongsToMany(User, {through: 'Following', as: 'Follow'})
 
+PrivateMessage.sendMessage = (message) => {
+  console.log(message)
+  let myMessage;
+  if (message.channelId) {
+    return PrivateMessage.create(message)
+  } else {
+    return PrivateMessage.create({content: message.content})
+    .then(newmessage => {
+      myMessage = newmessage
+      return myMessage.setSender(message.senderId)})
+    .then(() =>  {
+      return Channel.create()
+    })
+      .then(myChannel => myMessage.setChannel(myChannel))
+      .then(returned => Channel.findById(returned.channelId))
+      .then(channel => channel.addParticipant([message.recipientId]))
+      .catch()
 
+
+      // myChannel.addUser(message.senderId)
+      // myChannel.addUser(message.recipientId)
+  }
+}
 
 
 /**
@@ -54,35 +93,36 @@ module.exports = {
   Comment,
   PrivateMessage,
   UserProfile,
-  Flag
+  Flag,
+  Channel,
+  PublicMessage,
+  Following
 }
 
 
-User.prototype.getFeed = function() {
-  User.findAll(
-    {where: {
-    followerId: this.id
-  }}, {
-    attributes: 'userId'
-  })
-  .then(followingUsers => Post.findAll({
-    where: {
-      userId: {
-        [Op.contained]: followingUsers
-      },
-      include: [
-        {
-       model: Comment
-      }
-  ]
-    }
-  }))
-}
-// include: [
+// User.getFeed = function(user) {
+//  User.findAll(
+//     {include: [{model: Following, where: {FollowerId: user.id}}]
+//   })
+//   .then(followingUsers => {console.log(followingUsers)
+//     return followingUsers})
+//   .then(followingUsers => Post.findAll({
+//     where: {
+//       userId: {
+//         [Op.contained]: followingUsers
+//       },
+//       include: [
+//         {
+//        model: Comment
+//       }
+//   ]
+//     }
+//   }))
+// }
+// // include: [
 //   {
 //     model: db.posts,
 //
 //   }
 // ]
-
 

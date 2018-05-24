@@ -2,42 +2,58 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Message from './MessageId';
+import ChannelHead from './channel-head.jsx';
 import {getMessages, getThread, sendPrivateMessage} from '../../store/messages';
 import ErrorBoundary from '../ErrorBoundary';
+import {Link} from 'react-router-dom'
 
-function AllMessages(props) {
+class AllMessages extends Component {
 
-  const messages = props.messages
+  componentDidMount() {
+    this.props.getAllMessages()
+  }
 
-  return (
+
+  render(){
+  const channels = this.props.channels
+  const user = this.props.user
+    console.log('my channels are', channels)
+    return (
 
       <div className="container">
-      { messages && messages.length ?
-        messages.map(message => {
+        <h2>Private Messages</h2>
+      { channels && channels.length ?
+        channels.map(channel => {
         return (
-            <Message key={message.id} message={message} />
-
+            <ChannelHead key={channel.id} channel={channel} user={user} />
         )
       }) : <div className="card alert alert-warning">Sorry, you have no messages to display!</div>}
 
       </div>
   )}
+}
 
 
 const mapStateToProps = (state) => {
+  console.log('are there channels on my state', state.messages)
   return {
-    messages: state.messages
+    channels: state.messages.channels,
+    user: state.user
   }
 
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getAllMessages() {
-//       dispatch(getMessages())
-//     }
-//   }
-// };
+const mapDispatch = (dispatch) => {
+  return {
+    getAllMessages() {
+      dispatch(getMessages())
+    }
+  }
+};
 
 
-export default connect(mapStateToProps)(AllMessages)
+export default connect(mapStateToProps, mapDispatch)(AllMessages)
+
+AllMessages.propTypes = {
+  getAllMessages: PropTypes.func.isRequired,
+}

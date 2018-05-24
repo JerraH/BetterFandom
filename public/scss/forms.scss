@@ -1,0 +1,56 @@
+@import 'variables';
+
+div.DraftEditor-root {
+  .DraftEditor-editorContainer {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+
+    .public-DraftEditor-content {
+      height:4rem;
+      margin:1rem;
+      padding:.5rem;
+      &:focus {
+      border: 2px solid $blue;
+    }
+  }
+  }
+}
+.nav {
+
+  .react-tabs__tab--selected {
+    background-color: $blue;
+    color: white;
+  }
+  .nav-item {
+    padding: 1rem;
+  }
+
+}
+
+input {
+  margin: 2rem;
+  padding: .5rem;
+}
+
+div.buttonholder.card-footer {
+  padding: 1rem;
+  button {
+    margin-right:1rem;
+  }
+}
+
+
+
+.writeEntry {
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid $border-color;
+
+  .btn.style {
+    width:2rem;
+    padding:.25rem;
+    &:hover {
+      background-color:$light-blue;
+    }
+  }
+}

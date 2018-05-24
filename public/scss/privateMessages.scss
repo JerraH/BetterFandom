@@ -1,0 +1,47 @@
+
+@import 'variables';
+
+.chat.container {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  .messageBox.forRight {
+    justify-content: flex-end;
+  }
+  .messageBox.forLeft {
+    justify-content: flex-start;
+  }
+  .messageBox {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .message-left, .message-right {
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      padding: .5rem;
+    }
+    .message-right {
+      flex: 1 0 auto;
+      justify-content: flex-end;
+      max-width: 50%;
+      background-color: $blue;
+
+    }
+    .message-left {
+      flex: 1 0 auto;
+      max-width: 50%;
+      justify-content: flex-start;
+      border: 1px solid $light-blue;
+    }
+  }
+  .form-group {
+    padding: .5rem;
+    width: 100%;
+    input {
+      margin: 0;
+    }
+
+  }
+}

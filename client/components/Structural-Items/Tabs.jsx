@@ -1,29 +1,35 @@
-import { Tab } from './tab.jsx';
+import {Tab} from '../index';
 import PropTypes from 'prop-types'
 
 import React, { Component } from 'react';
-
+import ErrorBoundary from '../ErrorBoundary';
+import WriteBlogEntry from '../blogs/write-blog-entry.jsx';
+import {Link} from 'react-router-dom'
 
 
 class Tabs extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeTabIndex: this.props.defaultActiveTabIndex
-    };
-    this.handleClick = this.handleClick.bind(this);
+
   }
+
 
   //This will toggle the currently active tab`
 
   render() {
     return (
-      <div>
-        <ul className="nav-tabs">
+      <ErrorBoundary>
+
+        <ul className="nav nav-tabs nav-fill">
           { this.props.tabs.map((tab) => { return (
-          <Tab key={tab.id} props={tab} /> ) }) }
+
+              <Tab key={tab.id} tab={tab} setActiveTab=
+            {this.props.setActiveTab} />
+          ) }) }
         </ul>
-      </div>
+
+
+      </ErrorBoundary>
     );
   }
 }
@@ -31,6 +37,6 @@ class Tabs extends Component {
 export default Tabs;
 
 Tabs.propTypes = {
-  tabs: PropTypes.string,
+  tabs: PropTypes.array,
   defaultActiveTabIndex: PropTypes.string
 }

@@ -29,7 +29,7 @@ describe('thunk creators', () => {
 
   describe('me', () => {
     it('eventually dispatches the GET USER action', () => {
-      const fakeUser = {email: 'Cody'}
+      const fakeUser = {email: 'Cody', username: 'Vibrant'}
       mockAxios.onGet('/auth/me').replyOnce(200, fakeUser)
       return store.dispatch(me())
         .then(() => {

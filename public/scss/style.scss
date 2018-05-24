@@ -1,3 +1,9 @@
+@import 'variables';
+@import 'forms';
+@import 'feed';
+@import 'privateMessages';
+
+
 html {
   box-sizing: border-box;
 }
@@ -6,5 +12,85 @@ html {
 }
 
 .container {
-  width: 70%;
+  margin-top:2rem;
+  max-width:900px;
+  .message-thread {
+    margin-top:1rem;
+  }
 }
+
+
+
+.card-title {
+  padding:1rem;
+  h3 {
+    margin-bottom:0;
+  }
+
+  &.username {
+
+  font-size:1.2rem;
+  font-weight:bold;
+}
+}
+
+.container {
+  &.chat {
+    overflow-y: scroll;
+    display: block;
+  }
+}
+
+.navbar {
+  background-color: $blue;
+  a {
+    color: black;
+  }
+}
+
+.card-header {
+  width: 100%;
+  background-color: $light-blue;
+}
+.card {
+  margin-bottom:1rem;
+  .card-body {
+    padding:2rem;
+  }
+  &.shoutbox {
+    .card-body {
+      padding-left:4rem;
+    }
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color:white;
+  button {
+    flex: 100px 1 auto;
+    background-color: $blue;
+    color: white;
+  }
+}
+
+input {
+  &[type=textarea] {
+    height: 6rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.container {
+  background-color: white;
+  margin-top: 0;
+  padding:2rem;
+}
+
+.container-fluid {
+  background-color: lighten($light-blue, 2%);
+  min-height: 100vh;
+}
+
+

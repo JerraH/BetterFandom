@@ -9,9 +9,13 @@ import {
   composeWithDevTools
 } from 'redux-devtools-extension'
 import {default as user} from './user'
-import {default as messages} from './messages';
+import {default as messages} from './messages'
+import {default as userProfile} from './userProfile'
+import {default as asks} from './asks'
+import {default as recipient} from './recipient'
+import {default as feed} from './feed'
 
-const reducer = combineReducers({user, messages})
+const reducer = combineReducers({user, messages, userProfile, asks, recipient, feed})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({
@@ -23,4 +27,7 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './user'
 export * from './messages'
+export * from './userProfile'
+export * from './asks'
+export * from './recipient'
 

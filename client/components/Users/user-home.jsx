@@ -1,38 +1,49 @@
 
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {WriteBlogEntry, Tabs} from '../index';
-import { Link } from 'react-router-dom';
+import {WriteBlogEntry, BlockFeed, BitFeed} from '../index';
 import React, { Component } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
+import { Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 
 /**
  * COMPONENT
  */
 class UserHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTabIndex: 1
-    };
-  }
-
 
  render() {
-   const {email} = this.props;
+   const username = this.props.username;
+
   return (
 
-      <div className="container">
-      <ErrorBoundary>
+      <div className="container userHome">
         <div className="card">
           <div className="card-title">
-            <h3>Welcome, {email}</h3>
+            <h3>Welcome, {username}</h3>
           </div>
         </div>
-        <div className="card content-block">
-          <Tabs />
-        </div>
-        </ErrorBoundary>
+        <Tabs>
+            <TabList className="nav nav-tabs">
+                <Tab className="nav-item">Bit Feed</Tab>
+                <Tab className="nav-item">Block Feed</Tab>
+                <Tab className="nav-item">Write Bit</Tab>
+                <Tab className="nav-item">Write Block</Tab>
+            </TabList>
+          <div className="card tabContent">
+            <TabPanel>
+              <BitFeed />
+            </TabPanel>
+            <TabPanel>
+              <BlockFeed />
+            </TabPanel>
+            <TabPanel>
+              <div className="card">Future Content GOes Here</div>
+            </TabPanel>
+            <TabPanel>
+              <WriteBlogEntry />
+            </TabPanel>
+          </div>
+        </Tabs>
       </div>
 
   ) } }
@@ -43,16 +54,15 @@ class UserHome extends Component {
  */
 const mapState = (state) => {
   return {
-
+    user: state.user,
+    username: state.user.username,
     email: state.user.email,
     // defaultActiveTabIndex: state.home.defaultActiveTabIndex;
 
   }
 }
 
-// export default connect(mapState)(UserHome)
-
-export default UserHome;
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES
