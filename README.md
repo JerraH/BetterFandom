@@ -1,6 +1,5 @@
 ## Readme
 
-A social media site for fandom that automatically prevents harassment from reaching its intended recipient.
+A social media site for fans and fandom with anti-harassment features built in from the ground up.  
 
-
-[[https://github.com/username/repository/blob/master/img/octocat.png|alt=octocat]]
+Includes private messaging, publicly answerable messages, multimedia and rich text blog posts, and robust blacklisting/graylisting features that allow the user to never have to see content, either on their feed or in their private messages, that they do not want to see.
