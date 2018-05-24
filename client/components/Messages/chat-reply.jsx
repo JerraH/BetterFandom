@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { sendAskToUser, sendPrivateMessage } from '../../store';
 import { connect } from 'react-redux'
+import { PropTypes } from 'prop-types';
 
 class ChatReply extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class ChatReply extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.timeDiff = ''
   }
 
 
@@ -23,8 +25,9 @@ class ChatReply extends Component {
     event.preventDefault();
     console.log('recipientId', this.props.recipientId)
     console.log('senderId', this.props.user.id)
+
     //here do a dispatch
-    this.props.sendPrivateMessageBound({content: this.state.message, channelId: this.props.channelId, senderId: this.props.user.id })
+    this.props.sendPrivateMessageBound({content: this.state.message, channelId: this.props.channelId, senderId: this.props.user.id });
     this.setState({message: ''})
   }
 

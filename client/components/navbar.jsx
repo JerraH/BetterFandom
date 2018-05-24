@@ -23,7 +23,7 @@ const Navbar = ({ handleClick, isLoggedIn, user }) => (
               </a>
             </li>
             <li className="nav-item">
-              <Link to="/blog-feed" className="nav-link" >Feed</Link>
+              <Link to="/block-feed" className="nav-link" >Feed</Link>
             </li>
             <li className="nav-item">
               <Link to={`/messages`} className="nav-link" >Messages</Link>

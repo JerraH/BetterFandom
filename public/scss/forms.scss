@@ -2,8 +2,8 @@
 
 div.DraftEditor-root {
   .DraftEditor-editorContainer {
-    border-top: 1px solid $light-blue;
-    border-bottom: 1px solid $light-blue;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
 
     .public-DraftEditor-content {
       height:4rem;
@@ -44,7 +44,7 @@ div.buttonholder.card-footer {
 .writeEntry {
   padding: 1rem;
   margin: 1rem;
-  border: 1px solid $light-blue;
+  border: 1px solid $border-color;
 
   .btn.style {
     width:2rem;

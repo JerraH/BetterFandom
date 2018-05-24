@@ -7,6 +7,10 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const FIND_USER = 'FIND_USER'
+const SET_FOLLOWER = 'SET_FOLLOWER'
+const REMOVE_FOLLOWER = 'REMOVE_FOLLOWERS'
+const GET_FOLLOWING = 'GET_FOLLOWING'
+const GET_FOLLOWERS = 'GET_FOLLOWERS'
 
 
 /**

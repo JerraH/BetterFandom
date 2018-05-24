@@ -2,9 +2,10 @@
 import {connect} from 'react-redux';
 
 import React, { Component } from 'react';
-import {WriteMessage} from '../index';
+import {WriteMessage, UserpageBlogEntry, About} from '../index';
 import { sendAskToUser, getOtherUser } from '../../store'
 import ErrorBoundary from '../ErrorBoundary';
+import { Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class UserProfile extends Component {
     this.unshout = this.unshout.bind(this);
   }
   componentDidMount() {
-    getOtherUser(this.props.match.params.userId)
+    this.props.getOtherUserBound(this.props.match.params.userId)
   }
 
 
@@ -35,26 +36,34 @@ class UserProfile extends Component {
       <ErrorBoundary>
 
       <div className="container">
-        <div className="header">
-          <h3>{this.props.userProfile.username}</h3>
-        </div>
         <div className="pageBody">
-          <div className="buttonholder">
-            <button onClick={this.shoutAt}>Send me a message!</button>
-          </div>
-          {this.state.openMessage ? <div>
-            <WriteMessage recipientId={this.props.match.params.userId} userId={this.props.user.id} unshout={this.unshout} />
-            </div> : null
-          }
-          <div className="card">
-            <div className="card-header">
-              <div className="card-title">About Me</div>
-            </div>
-          </div>
-          <div />
-          <div />
+        <div className="card header">
+          <h3>{this.props.userProfile.data ? this.props.userProfile.data.username : 'error'}</h3>
         </div>
-      </div>
+        <Tabs>
+          <TabList className="nav nav-tabs">
+                <Tab className="nav-item">Blog</Tab>
+                <Tab className="nav-item">About</Tab>
+                <Tab className="nav-item">Shout at me</Tab>
+            </TabList>
+          <div className="card tabContent">
+            <TabPanel>
+              {this.props.userProfile.data ? this.props.userProfile.data.posts.map((post) => {
+              return (
+                <UserpageBlogEntry key={post.id} post={post} user={this.props.userProfile.user} />
+              )
+            }) : <div className="alert">This user has no posts to display!</div>}
+            </TabPanel>
+            <TabPanel>
+              <About userProfile={this.props.userProfile.data} />
+            </TabPanel>
+            <TabPanel>
+              <WriteMessage recipientId={this.props.match.params.userId} userId={this.props.user.id} unshout={this.unshout} />
+            </TabPanel>
+          </div>
+        </Tabs>
+          </div>
+        </div>
       </ErrorBoundary>
 
     )

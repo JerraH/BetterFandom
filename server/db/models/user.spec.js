@@ -36,7 +36,6 @@ describe('User model', () => {
   })
 
 
-
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
       let cody
@@ -45,7 +44,8 @@ describe('User model', () => {
       beforeEach(() => {
         return User.create({
           email: 'cody@puppybook.com',
-          password: 'bones'
+          password: 'bones',
+          username: 'Fifteenth'
         })
           .then(user => {
             cody = user

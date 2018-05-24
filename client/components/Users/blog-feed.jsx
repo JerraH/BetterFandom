@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BlogEntry from './blog-entry.jsx';
 import {connect} from 'react-redux';
-import {getBlockFeed} from '../../store/feed'
+import {getBlogFeed} from '../../store/feed'
 
 class BlogFeed extends Component {
 
@@ -33,8 +33,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => {
   return {
-    getBlockFeedBound(userId) {
-      dispatch(getBlockFeed(userId))
+    getBlogFeedBound(userId) {
+      dispatch(getBlogFeed(userId))
     }
 }
 }

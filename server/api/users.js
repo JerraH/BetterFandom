@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, UserProfile} = require('../db/models')
+const {User, UserProfile, Post} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -17,7 +17,7 @@ router.get(`/:userId`, (req, res, next) => {
   User.findById(req.params.userId, {include:
     [{
     model: UserProfile
-  }]})
+  }, {model: Post}]})
   .then(user => res.json(user))
   .catch(next)
 })

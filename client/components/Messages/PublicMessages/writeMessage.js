@@ -19,10 +19,9 @@ class WriteMessage extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
     let shout = {content: this.state.message, senderId: this.props.userId, recipientId: +this.props.recipientId}
     this.props.sendAskToUserBound(shout)
-    this.props.unshout();
+    this.setState({message: ''})
     //here do a dispatch
   }
 
@@ -34,7 +33,6 @@ class WriteMessage extends Component {
           <input onChange={this.handleChange} className="form-control" type="textArea" name="message" value={this.state.message} />
           <div className="buttonholder card-footer">
             <button className="btn btn-primary" onClick={this.handleSubmit}>Shout!</button>
-            <button className="btn btn-cancel" onClick={this.props.unshout}>I changed my mind!</button>
           </div>
         </div>
       </div>
@@ -47,7 +45,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
   return {
     sendAskToUserBound(message) {
       dispatch(sendAskToUser(message))

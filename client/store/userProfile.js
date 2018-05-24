@@ -1,4 +1,4 @@
-import { axios } from 'axios';
+import axios from 'axios';
 
 /**
  * ACTION TYPES
@@ -12,7 +12,7 @@ const EDIT_PROFILE = 'EDIT_PROFILE'
  * ACTION CREATORS
  */
 
-const getUserProfile = userProfile => ({type: GET_USER_PROFILE, userProfile})
+const getUserProfile = user => ({type: GET_USER_PROFILE, user})
 
 
  /**
@@ -29,7 +29,8 @@ const userProfile = {}
 const reducer = (state = userProfile, action) => {
   switch (action.type) {
     case GET_USER_PROFILE:
-      return action.userProfile;
+      console.log(action)
+      return action.user ;
 
     default:
       return state;

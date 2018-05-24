@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {WriteBlogEntry, BlogFeed, BitFeed} from '../index';
+import {WriteBlogEntry, BlockFeed, BitFeed} from '../index';
 import React, { Component } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import { Tab, Tabs, TabList, TabPanel} from 'react-tabs';
@@ -34,7 +34,7 @@ class UserHome extends Component {
               <BitFeed />
             </TabPanel>
             <TabPanel>
-              <BlogFeed />
+              <BlockFeed />
             </TabPanel>
             <TabPanel>
               <div className="card">Future Content GOes Here</div>
