@@ -57,6 +57,7 @@ router.post('/:userId/publicmessage', (req, res, next) => {
   res.json('Message sent!')
   // .then(() => res.json('Message sent!'))
   // .catch(next)
+  .catch(next)
 })
 
 //get your shouts

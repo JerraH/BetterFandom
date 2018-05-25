@@ -52,5 +52,11 @@ router.get('/bits', (req, res, next) => {
     .catch(next)
   })
 
+  router.post('/', (req, res, next) => {
+    Post.create(req.body)
+    .then(post => res.json(post))
+    .catch(next)
+  })
+
 
 module.exports = router;

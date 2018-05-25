@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const {User} = require('./index')
 
 const Post = db.define('post', {
   title: {
@@ -20,6 +21,11 @@ const Post = db.define('post', {
 
 
 module.exports = Post;
+
+Post.submitPost = (post) => {
+  return User.findById(post.userId)
+  .then(result => result.addPost(post))
+}
 
 // Post.getFeed(userId) {
 //   User.findById(userId, {include:

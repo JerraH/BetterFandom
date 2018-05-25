@@ -41,7 +41,7 @@ render(){
         </div>
       </div> {/*end buttonholder */}
       { this.state.commentBoxVis ?
-        <Comment /> : null }
+        <Comment postId={post.id} /> : null }
     </div>
 )} }
 

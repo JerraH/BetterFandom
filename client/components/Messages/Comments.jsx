@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {postMyComment} from '../../store/index';
+import {connect} from 'react-redux'
 
 class Comment extends Component {
   constructor(props) {
@@ -7,6 +9,7 @@ class Comment extends Component {
       comment: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
  handleChange = (event) => {
@@ -17,6 +20,8 @@ class Comment extends Component {
 
 handleSubmit = (event) => {
   event.preventDefault()
+  this.props.postMyCommentBound({content: this.state.comment, postId: this.props.postId, userId: this.props.user.id})
+  this.setState({comment: ''})
   //here do a dispatch
 }
 
@@ -24,14 +29,28 @@ handleSubmit = (event) => {
     return (
       <div className="card">
         <input onChange={this.handleChange} type="textArea" name="comment" value={this.state.comment} />
-        <div className="buttonholder card-footer">
+        <form onSubmit={this.handleSubmit} className="buttonholder card-footer">
           <button className="btn btn-primary">Submit</button>
           <button className="btn btn-cancel">Cancel</button>
-        </div>
+        </form>
       </div>
     );
   }
 }
 
-export default Comment;
+const mapStateToProps = (state, ownProps) => ({
+  user: state.user,
+  postId: ownProps.postId
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+     postMyCommentBound(comment) {
+       dispatch(postMyComment(comment))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);
 

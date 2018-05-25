@@ -47,7 +47,7 @@ class ChatReply extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.user,
+  user: state.user
 })
 
 
