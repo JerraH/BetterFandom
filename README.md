@@ -1,7 +1,5 @@
 ## Readme
 
-A social media site for fandom that automatically deals w
+A social media site for fans and fandom with anti-harassment features built in from the ground up.  
 
-![alt text](/Users/jerrahaynes/Documents/senior/better-fandom/client/assets/Screenshot 2018-05-24 08.18.57.png "Logo Title Text 1")
-
-
+Includes private messaging, publicly answerable messages, multimedia and rich text blog posts, and robust blacklisting/graylisting features that allow the user to never have to see content, either on their feed or in their private messages, that they do not want to see.
