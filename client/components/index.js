@@ -16,16 +16,22 @@ export {default as BlockFeed} from './blogs/block-feed.jsx';
 
 export {default as BitFeed} from './bits/bit-feed.jsx'
 
-export {default as Tabs} from './Structural-Items/Tabs.jsx'
-export {default as Tab} from './Structural-Items/Tab.jsx'
-
-export {default as AllMessages} from './messages/AllMessages.jsx'
-export {default as MessageThread} from './messages/message-thread.js'
-export {default as WriteMessage} from './messages/PublicMessages/writeMessage'
+export {default as AllMessages} from './messages/PrivateMessages/AllMessages.jsx'
+export {default as MessageThread} from './messages/PrivateMessages/message-thread.js'
+export {default as WriteMessage} from './messages/PublicMessages/writeMessage.js'
 export {default as PublicMessages} from './messages/PublicMessages/PublicMessage.jsx'
+export {default as ShoutBox} from './messages/PublicMessages/shoutbox.jsx'
+export {default as ChatReply} from './messages/PrivateMessages/chat-reply.jsx'
+
+//user pages
 export {default as UserProfile} from './users/user-profile.jsx'
-export {default as ChatReply} from './messages/chat-reply.jsx'
-export {default as Comment} from './messages/comments.jsx'
 export {default as UserpageBlogEntry} from './users/userpage-blog-entry.jsx'
 export {default as About} from './users/about.jsx'
+
+//comments
+export {default as CommentHistory} from './messages/comments/CommentHistory.jsx'
+export {default as WriteComment} from './messages/comments/WriteComment.jsx'
+export {default as Notifications} from './messages/comments/notifications.jsx'
+export {default as AllComments} from './messages/comments/allcomments.jsx'
+export {default as Comment} from './messages/comments/commentId.jsx'
 

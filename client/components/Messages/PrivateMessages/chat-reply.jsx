@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sendAskToUser, sendPrivateMessage } from '../../store';
+import { sendAskToUser, sendPrivateMessage } from '../../../store';
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types';
 

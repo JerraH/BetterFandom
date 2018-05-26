@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { getOtherUser } from '../../store';
+import { getOtherUser } from '../../../store';
 
 
 function ChannelHead(props) {

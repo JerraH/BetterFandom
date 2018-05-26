@@ -45,8 +45,8 @@ User.hasMany(Comment);
 Post.hasMany(Tag);
 Tag.belongsToMany(Post, {through: 'TaggedAs'});
 
-Post.belongsToMany(Comment, {through: 'CommentThread'})
-Comment.hasOne(Post);
+Post.hasMany(Comment)
+Comment.belongsTo(Post);
 
 User.belongsTo(UserProfile);
 UserProfile.hasOne(User)
@@ -71,7 +71,7 @@ PrivateMessage.sendMessage = (message) => {
     })
       .then(myChannel => myMessage.setChannel(myChannel))
       .then(returned => Channel.findById(returned.channelId))
-      .then(channel => channel.addParticipant([message.recipientId]))
+      // .then(mychannel => mychannel.addParticipant([message.recipientId]))
       .catch()
 
 

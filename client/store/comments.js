@@ -92,7 +92,8 @@ const reducer = (state = interactions, action) => {
     case GET_COMMENTS:
       return action.comments;
     case POST_COMMENT:
-      return [{comments: [...state.comments, action.comment]}]
+    console.log(action)
+      return [...state, action.comment]
     case GET_COMMENT_HISTORY:
     case GET_COMMENTS_NOTIFICATIONS:
     case POST_LIKE:

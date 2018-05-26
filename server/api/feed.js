@@ -21,7 +21,7 @@ router.get('/blocks', (req, res, next) => {
     },
     include: [{
       model: User
-    }]
+    }, {model: Comment}]
   })
   )
   .then(blogFeed => res.json(blogFeed))
@@ -45,7 +45,7 @@ router.get('/bits', (req, res, next) => {
     },
     include: [{
       model: User
-    }]
+    }, {model: Comment}]
   })
   )
   .then(blogFeed => res.json(blogFeed))

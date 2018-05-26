@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { default as Message } from './MessageId';
-import ErrorBoundary from '../ErrorBoundary';
+import ErrorBoundary from '../../ErrorBoundary';
 import {connect} from 'react-redux'
-import { getMessageChannel } from '../../store';
+import { getMessageChannel } from '../../../store';
 import { PropTypes } from 'prop-types';
-import {ChatReply} from '../index';
+import {ChatReply} from '../../index';
 
 
 class MessageThread extends Component {

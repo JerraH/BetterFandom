@@ -48,6 +48,11 @@ async function seed () {
     users[0].addFollower(users[2]),
     users[0].addFollower(users[1]),
     users[0].addFollower(users[5]),
+    users[1].addFollower(users[9]),
+    users[2].addFollower(users[9]),
+    users[3].addFollower(users[9]),
+    users[4].addFollower(users[9]),
+    users[5].addFollower(users[9])
   ])
   PrivateMessage.sendMessage({content: 'Mary had a little lamb her fleece was white as snow', recipientId: 9, senderId: 3})
   const userProfiles = await Promise.all([

@@ -11,6 +11,8 @@ router.get('/:postId', (req, res, next) => {
       postId: req.params.postId
     }
   })
+  .then(comments => res.json(comments))
+  .catch(next)
 })
 
 
@@ -41,6 +43,7 @@ router.get('/:userId/commenthistory', (req, res, next) => {
 
 //write comment
 router.post('/', (req, res, next) => {
+  console.log(req.body)
   Comment.create(req.body)
   .then(comment => res.json(comment))
   .catch(next)

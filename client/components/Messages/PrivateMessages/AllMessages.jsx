@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Message from './MessageId';
 import ChannelHead from './channel-head.jsx';
-import {getMessages, getThread, sendPrivateMessage} from '../../store/messages';
-import ErrorBoundary from '../ErrorBoundary';
+import {getMessages, getThread, sendPrivateMessage} from '../../../store/messages';
+import ErrorBoundary from '../../ErrorBoundary';
 import {Link} from 'react-router-dom'
 
 class AllMessages extends Component {

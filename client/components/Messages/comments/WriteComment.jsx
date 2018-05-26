@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {postMyComment} from '../../store/index';
+import {postMyComment} from '../../../store/index';
 import {connect} from 'react-redux'
 
-class Comment extends Component {
+class WriteComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: ''
+      inputContent: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -15,20 +15,19 @@ class Comment extends Component {
  handleChange = (event) => {
     event.preventDefault()
     this.setState({[event.target.name]: event.target.value})
-    console.log(this.state.comment)
   }
 
 handleSubmit = (event) => {
   event.preventDefault()
-  this.props.postMyCommentBound({content: this.state.comment, postId: this.props.postId, userId: this.props.user.id})
-  this.setState({comment: ''})
+  this.props.postMyCommentBound({content: this.state.inputContent, postId: this.props.postId, userId: this.props.user.id})
+  this.setState({inputContent: ''})
   //here do a dispatch
 }
 
   render() {
     return (
       <div className="card">
-        <input onChange={this.handleChange} type="textArea" name="comment" value={this.state.comment} />
+        <input onChange={this.handleChange} type="textArea" name="inputContent" value={this.state.inputContent} />
         <form onSubmit={this.handleSubmit} className="buttonholder card-footer">
           <button className="btn btn-primary">Submit</button>
           <button className="btn btn-cancel">Cancel</button>
@@ -52,5 +51,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment);
+export default connect(mapStateToProps, mapDispatchToProps)(WriteComment);
 
